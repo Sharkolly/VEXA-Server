@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
+import Person from "../models/User";
 import { USERSIGNUPTODB } from "../services/auth.services";
 
 export const signup = async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ export const signup = async (req: Request, res: Response) => {
   }
 
   try {
-    const UserExists = await User.findOne({ email });
+    const UserExists = await Person.findOne({ email });
 
     if (UserExists)
       return res.status(401).json({ message: "user exists", success: false });
