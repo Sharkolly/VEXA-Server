@@ -37,8 +37,10 @@ app.get("/", (req: Request, res: Response) => {
   res.json("Hello World");
 });
 
+const PORT = process.env.PORT || 5001;
+
 const start_server = async () => {
-  server.listen(3001, () => {
+  server.listen(PORT, () => {
     // initSocket(server);
     connectToMongoDB();
     logger.info("Server active on Port 5001");

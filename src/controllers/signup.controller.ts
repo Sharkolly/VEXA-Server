@@ -50,8 +50,7 @@ export const signup = async (req: Request, res: Response) => {
       process.env.JWT_SECRET_KEY!!,
       { expiresIn: "14d" },
     );
-
-    console.log(token, userIdToString);
+    
 
     return res
       .status(200)

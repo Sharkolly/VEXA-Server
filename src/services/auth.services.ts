@@ -26,3 +26,9 @@ export const checkUserExists = async (email: string) => {
   const checkIfUserExist = await Person.findOne({ email: email.toLowerCase() });
   return checkIfUserExist;
 };
+
+
+export const get_user_details = async (userId: string) => {
+  const user = await Person.findById(userId).select("-password");
+  return user;
+}
