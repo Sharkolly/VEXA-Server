@@ -21,7 +21,7 @@ const server = http.createServer(app);
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://client-six-liard-83.vercel.app/'],
+    origin: ['http://localhost:5173', 'https://client-six-liard-83.vercel.app'],
     credentials: true,
   }),
 );
