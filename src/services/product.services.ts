@@ -1,7 +1,34 @@
 import Product from "../models/Product";
 
+export const getProductsFromDB = async () => {
+  // const product = await Product.find();
+
+    const categories = [
+      "Electronics",
+      "Fashion",
+      "Phones",
+      "Computers",
+      "Beauty",
+      'Gaming',
+      'Home & Kitchen',
+    ];
+
+    const data = await Promise.all(
+      categories.map(async (category) => {
+        const products = await Product.find({ category })
+          .limit(8);
+
+        return {
+          category,
+          products,
+        };
+      })
+    );
+  
+  return data;
+};
 export const getAllProductsFromDB = async () => {
-  const product = await Product.find();
+  const product = await Product.find();  
   return product;
 };
 
