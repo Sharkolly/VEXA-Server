@@ -1,8 +1,7 @@
 import Product from "../models/Product";
 
 export const getProductsFromDB = async () => {
-  // const product = await Product.find();
-
+  
     const categories = [
       "Electronics",
       "Fashion",
@@ -27,6 +26,13 @@ export const getProductsFromDB = async () => {
   
   return data;
 };
+
+export const getCategory = async () => {
+  const categories = await Product.distinct('category');
+  return categories;
+
+}
+
 export const getAllProductsFromDB = async () => {
   const product = await Product.find();  
   return product;
@@ -42,7 +48,7 @@ export const searchProduct = async (search: string) => {
     title: { $options: "i", $regex: search },
   });
 
-  return product;
+  return { product };
 };
 
 export const searchCategory = async (category: string) => {
