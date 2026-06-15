@@ -1,12 +1,16 @@
 import { Request, Response, Router } from "express";
 import { getAllProducts } from "../controllers/allproduct.controller";
 import { getAllPro } from "../controllers/allProducts.controller";
+import { getHomeProduct } from "../controllers/HomeProduct.controller";
 import { getProduct } from "../controllers/product_id.controller";
 import { Category } from "../controllers/getCategory";
 
 const router = Router();
 
 router.get("/", getAllProducts);
+
+router.get("/min", getHomeProduct);
+
 
 router.get("/all", getAllPro);
 
