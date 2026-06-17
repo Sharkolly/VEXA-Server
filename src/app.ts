@@ -22,7 +22,7 @@ const server = http.createServer(app);
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174' , 'https://client-six-liard-83.vercel.app', 'https://vexa-shop.vercel.app', '*'],
+    origin: ['http://localhost:5173', 'http://localhost:5174' , 'https://client-six-liard-83.vercel.app', 'https://vexa-shop.vercel.app', 'https://vexa-admin.vercel.app', '*'],
     credentials: true,
   }),
 );
