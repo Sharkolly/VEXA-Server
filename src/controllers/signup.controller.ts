@@ -45,15 +45,8 @@ export const signup = async (req: Request, res: Response) => {
       lastName,
     });
 
-    const token = jwt.sign(
-      { _id: userIdToString },
-      process.env.JWT_SECRET_KEY!!,
-      { expiresIn: "14d" },
-    );
-    
-
     return res
       .status(200)
-      .json({ success: true, message: "Account Created Successfully", token });
+      .json({ success: true, message: "Account Created Successfully"});
   } catch (err: unknown) {}
 };

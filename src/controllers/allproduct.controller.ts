@@ -20,6 +20,8 @@ export const getAllProducts = async (
         .json({ status: "success", data: product, categories });
     }
     const allProducts = await getAllProductsFromDB();
+
+    console.log(allProducts);
     res.status(200).json({ status: "success", data: allProducts, categories });
   } catch (error) {
     next(error);

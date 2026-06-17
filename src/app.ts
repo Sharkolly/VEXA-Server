@@ -9,6 +9,7 @@ import morgan from "morgan";
 
 import errorHandler from "./middlewares/errorhandler.middleware";
 import auth_route from "./routes/auth.route";
+import admin_route from "./routes/admin.route";
 import product_route from "./routes/product.route";
 import logger from "./config/logger";
 import connectToMongoDB from "./config/mongodb.config";
@@ -21,7 +22,7 @@ const server = http.createServer(app);
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://client-six-liard-83.vercel.app', 'https://vexa-shop.vercel.app', '*'],
+    origin: ['http://localhost:5173', 'http://localhost:5174' , 'https://client-six-liard-83.vercel.app', 'https://vexa-shop.vercel.app', '*'],
     credentials: true,
   }),
 );
@@ -31,19 +32,20 @@ app.use(morgan("dev"));
 // middleware
 app.use(errorHandler);
 app.use("/api/user", auth_route);
+app.use("/api/admin", admin_route);
 app.use("/api/products", product_route);
 
 app.get("/", (req: Request, res: Response) => {
   res.json("Hello World");
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
 const start_server = async () => {
   server.listen(PORT, () => {
     // initSocket(server);
     connectToMongoDB();
-    logger.info("Server active on Port 5001");
+    logger.info("Server active on Port 5000");
   });
 };
 
