@@ -58,6 +58,33 @@ export const searchCategory = async (category: string) => {
   return product;
 };
 
+export const relatedCategory = async (category: string) => {
+  // const product = await Product.find({ category }).limit(4);
+
+  
+
+    const product = await Product.aggregate([
+    {
+      $sample: {
+        size: 4,
+      },
+    },
+    {
+      $project: {
+        title: 1,
+        price: 1,
+        description: 1,
+        image: 1,
+        category: 1,
+        brand: 1,
+        discount: 1,
+        createdAt: 1,
+      },
+    },
+  ]);
+  return product;
+};
+
 export const GetHomeProduct = async () => {
   const product = await Product.aggregate([
     {

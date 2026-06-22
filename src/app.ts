@@ -13,6 +13,7 @@ import admin_route from "./routes/admin.route";
 import product_route from "./routes/product.route";
 import logger from "./config/logger";
 import connectToMongoDB from "./config/mongodb.config";
+import Payment from "./models/Payment";
 // import { initSocket } from "./helpers/socket";
 
 dotenv.config();
@@ -38,14 +39,28 @@ app.use("/api/products", product_route);
 app.get("/", (req: Request, res: Response) => {
   res.json("Hello World");
 });
+app.post("/payment", async (req: Request, res: Response) => {
+  const {amount, reference, status} = req.body;
+  if(!req.body) console.log('Provide one')
 
-const PORT = process.env.PORT || 5000;
+    if(req.body){
+      const paymentData = await Payment.create({
+        amount,
+        reference,
+        status
+      })
+    }
+
+    res.status(200).json({message: status})
+});
+
+const PORT = process.env.PORT || 5001;
 
 const start_server = async () => {
   server.listen(PORT, () => {
     // initSocket(server);
     connectToMongoDB();
-    logger.info("Server active on Port 5000");
+    logger.info("Server active on Port 5001");
   });
 };
 
