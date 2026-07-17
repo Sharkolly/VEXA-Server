@@ -21,4 +21,7 @@ router.get("/category/electronics", RelatedCategory);
 
 router.get("/product/:id", getProduct);
 
+
+
+
 export default router;
