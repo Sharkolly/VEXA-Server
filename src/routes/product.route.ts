@@ -17,7 +17,7 @@ router.get("/all", getAllPro);
 router.get("/category", Category);
 
 // router.get("/category/:category", RelatedCategory);
-router.get("/category/electronics", RelatedCategory);
+router.get("/category/:category", RelatedCategory);
 
 router.get("/product/:id", getProduct);
 
