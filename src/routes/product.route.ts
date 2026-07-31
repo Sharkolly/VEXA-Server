@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/", getAllProducts);
 
-router.get("/min", getHomeProduct);
+router.get("/min", getHomeProduct); 
 
 router.get("/all", getAllPro);
 
@@ -19,7 +19,7 @@ router.get("/category", Category);
 // router.get("/category/:category", RelatedCategory);
 router.get("/category/:category", RelatedCategory);
 
-router.get("/product/:id", getProduct);
+router.get("/:category/:subCategory/:slug", getProduct);
 
 
 

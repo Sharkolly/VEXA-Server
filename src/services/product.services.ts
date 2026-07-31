@@ -2,13 +2,13 @@ import Product from "../models/Product";
 
 export const getProductsFromDB = async () => {
   const categories = [
-    "Electronics",
-    "Fashion",
-    "Phones",
-    "Computers",
-    "Beauty",
-    "Gaming",
-    "Home & Kitchen",
+    "electronics",
+    "fashion",
+    "phones",
+    "computers",
+    "beauty",
+    "gaming",
+    "home & kitchen",
   ];
 
   const data = await Promise.all(
@@ -35,8 +35,9 @@ export const getAllProductsFromDB = async () => {
   return product;
 };
 
-export const getProductID = async (id: string) => {
-  const product = await Product.findById(id);
+export const getProductSlug = async (slug: string, category: string, subCategory: string) => {
+  const product = await Product.findOne({slug, category, subCategory});
+  // console.log(product);
   return product;
 };
 
@@ -61,9 +62,7 @@ export const searchCategory = async (category: string) => {
 export const relatedCategory = async (category: string) => {
   // const product = await Product.find({ category }).limit(4);
 
-  
-
-    const product = await Product.aggregate([
+  const product = await Product.aggregate([
     {
       $sample: {
         size: 4,
@@ -71,10 +70,12 @@ export const relatedCategory = async (category: string) => {
     },
     {
       $project: {
-        title: 1,
+        name: 1,
         price: 1,
         description: 1,
-        image: 1,
+        images: 1,
+        subCategory: 1,
+        slug: 1,
         category: 1,
         brand: 1,
         discount: 1,
@@ -94,14 +95,16 @@ export const GetHomeProduct = async () => {
     },
     {
       $project: {
-        title: 1,
+        name: 1,
         price: 1,
-        description: 1,
-        image: 1,
+        description: 1,        
         category: 1,
+        subCategory: 1,
         brand: 1,
         discount: 1,
         createdAt: 1,
+        images: 1,
+        slug: 1
       },
     },
   ]);

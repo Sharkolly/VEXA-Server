@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getProductID } from "../services/product.services";
+import { getProductSlug } from "../services/product.services";
 
 export const getProduct = async (
   req: Request,
@@ -7,10 +7,9 @@ export const getProduct = async (
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.params;
-    console.log(id);
-
-    const product = await getProductID(id);
+    const { slug, category, subCategory } = req.params;
+    const product = await getProductSlug(slug, category, subCategory);
+    console.log('product', product)
     return res.status(200).json({ status: "success", data: product });
   } catch (error) {
     next(error);

@@ -4,8 +4,10 @@ import { AdminLogin } from "../controllers/admin.login.controller";
 import getAdmin from "../controllers/admin-verify-token.controller";
 import { admin_token_verify } from "../middlewares/admin-token_verify.middleware";
 import admin from "../controllers/admin.controller";
-import { productMediaFields } from "../config/CloudinaryStorage.config";
-import { AddProduct } from "../controllers/PostProduct";
+// importprocessMediaUpload,  { productMediaFields } from "../config/CloudinaryStorage.config";
+// import { AddProduct } from "../controllers/PostProduct";
+import { processMediaUpload } from "../config/CloudinaryStorage.config";
+import { ProductForm } from "../controllers/admin-product-form.controller";
 
 const router = Router();
 
@@ -14,6 +16,7 @@ router.post("/signup", AdminSignup);
 router.get("/token-verify", admin_token_verify, getAdmin);
 router.get("/", admin_token_verify, admin);
 
-router.post("/product", productMediaFields, AddProduct);
+// router.post("/product", productMediaFields, AddProduct);
+router.post("/product", processMediaUpload, ProductForm);
 
 export default router;

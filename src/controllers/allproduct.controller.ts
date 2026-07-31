@@ -19,9 +19,7 @@ export const getAllProducts = async (
         .status(200)
         .json({ status: "success", data: product, categories });
     }
-    const allProducts = await getAllProductsFromDB();
-
-    console.log(allProducts);
+    const allProducts = await getAllProductsFromDB();    
     res.status(200).json({ status: "success", data: allProducts, categories });
   } catch (error) {
     next(error);
