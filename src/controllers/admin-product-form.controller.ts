@@ -33,8 +33,7 @@ export const ProductForm = async (
       message: "Product created successfully!",
       data: createdProduct,
     });
-  } catch (error: any) {
-    console.log(error);
+  } catch (error: any) {    
     return res.status(500).json({ success: false, message: error.message });
   }
 };

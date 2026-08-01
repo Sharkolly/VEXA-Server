@@ -7,11 +7,8 @@ export const Category = async (
   next: NextFunction,
 ) => {
   const { search } = req.query || "";
-  // console.log(search)
-
   try {
     const searchedProducts = await searchCategory(search as string);
-    console.log(searchedProducts)
        return res.status(200).json({ status: "success", data: searchedProducts });
   } catch (err) {
     next(err);
