@@ -17,6 +17,6 @@ router.get("/token-verify", admin_token_verify, getAdmin);
 router.get("/", admin_token_verify, admin);
 
 // router.post("/product", productMediaFields, AddProduct);
-router.post("/product", processMediaUpload, ProductForm);
+router.post("/product",admin_token_verify,  processMediaUpload, ProductForm);
 
 export default router;

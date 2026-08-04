@@ -43,7 +43,7 @@ export const getProductSlug = async (slug: string, category: string, subCategory
 
 export const searchProduct = async (search: string) => {
   const product = await Product.find({
-    title: { $options: "i", $regex: search },
+    name: { $options: "i", $regex: search },
   }).limit(15);
 
   return { product };
