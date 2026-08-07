@@ -2,15 +2,22 @@ import Product from "../models/Product";
 
 export const getProductsFromDB = async () => {
   const categories = [
-    "electronics",
-    "fashion",
-    "phones",
-    "computers",
-    "beauty",
-    "gaming",
-    "home & kitchen",
-  ];
-
+  "electronics",
+  "fashion",
+  "beauty & health",
+  "home & kitchen",
+  "automobile",
+  "sports & outdoors",
+  "books & education",
+  "baby products",
+  "groceries",
+  "pet supplies",
+  "industrial & tools",
+  "office supplies",
+  "gaming",
+  "musical instruments",
+  "arts & crafts"
+]
   const data = await Promise.all(
     categories.map(async (category) => {
       const products = await Product.find({ category }).limit(8);
