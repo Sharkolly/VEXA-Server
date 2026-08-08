@@ -38,7 +38,28 @@ export const getCategory = async () => {
 };
 
 export const getAllProductsFromDB = async () => {
-  const product = await Product.find().limit(15);
+ // const product = await Product.find().limit(15);
+  const product = await Product.aggregate([
+    {
+      $sample: {
+        size: 15,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        price: 1,
+        description: 1,        
+        category: 1,
+        subCategory: 1,
+        brand: 1,
+        discount: 1,
+        createdAt: 1,
+        images: 1,
+        slug: 1
+      },
+    },
+  ]);
   return product;
 };
 
