@@ -69,27 +69,24 @@ export const searchCategory = async (category: string) => {
 export const relatedCategory = async (category: string) => {
   // const product = await Product.find({ category }).limit(4);
 
-  const product = await Product.find({category}).aggregate([
-    {
-      $sample: {
-        size: 4,
-      },
+  const product = await Product.aggregate([
+  { $match: { category } },
+  { $sample: { size: 4 } },
+  {
+    $project: {
+      name: 1,
+      price: 1,
+      description: 1,
+      images: 1,
+      subCategory: 1,
+      slug: 1,
+      category: 1,
+      brand: 1,
+      discount: 1,
+      createdAt: 1,
     },
-    {
-      $project: {
-        name: 1,
-        price: 1,
-        description: 1,
-        images: 1,
-        subCategory: 1,
-        slug: 1,
-        category: 1,
-        brand: 1,
-        discount: 1,
-        createdAt: 1,
-      },
-    },
-  ]);
+  },
+]);
   return product;
 };
 
