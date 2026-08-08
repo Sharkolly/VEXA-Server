@@ -80,9 +80,49 @@ export const searchProduct = async (search: string) => {
 export const searchCategory = async (category: string) => {
   let product;
   if (category == "All") {
-    product = await Product.find().limit(15);
+    //product = await Product.find().limit(15);
+    product = await Product.aggregate([
+    {
+      $sample: {
+        size: 15,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        price: 1,
+        description: 1,        
+        category: 1,
+        subCategory: 1,
+        brand: 1,
+        discount: 1,
+        createdAt: 1,
+        images: 1,
+        slug: 1
+      },
+    },
+  ]);
   } else {
-    product = await Product.find({ category }).limit(15);
+   // product = await Product.find({ category }).limit(15);
+
+    product = await Product.aggregate([
+  { $match: { category } },
+  { $sample: { size: 15 } },
+  {
+    $project: {
+      name: 1,
+      price: 1,
+      description: 1,
+      images: 1,
+      subCategory: 1,
+      slug: 1,
+      category: 1,
+      brand: 1,
+      discount: 1,
+      createdAt: 1,
+    },
+  },
+]);
   }
   return product;
 };
