@@ -117,6 +117,8 @@ const productSchema = new Schema(
         "Tokunbo",
         "Refurbished",
         "Damaged",
+        "Foreign Used",
+        "Mint",
         "Nigerian Used",
       ],
       default: 'Nigerian Used'
