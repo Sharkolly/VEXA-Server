@@ -8,6 +8,7 @@ import admin from "../controllers/admin.controller";
 // import { AddProduct } from "../controllers/PostProduct";
 import { processMediaUpload } from "../config/CloudinaryStorage.config";
 import { ProductForm } from "../controllers/admin-product-form.controller";
+import { getAdminProduct } from "../controllers/getAdminProduct.controller";
 
 const router = Router();
 
@@ -17,6 +18,8 @@ router.get("/token-verify", admin_token_verify, getAdmin);
 router.get("/", admin_token_verify, admin);
 
 // router.post("/product", productMediaFields, AddProduct);
-router.post("/product",admin_token_verify,  processMediaUpload, ProductForm);
+router.get("/product", admin_token_verify, getAdminProduct);
+
+router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
 
 export default router;
