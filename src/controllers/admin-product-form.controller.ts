@@ -7,6 +7,11 @@ export const ProductForm = async (
   res: Response,
   next: NextFunction,
 ) => {
+  const admin = req.admin as { _id: string } | undefined;
+
+   const vendor = admin?._id;
+
+    if (!vendor) throw new Error("Please Login to publish your product");
   try {
     const {
       name,
@@ -36,16 +41,13 @@ export const ProductForm = async (
     ) {
       return res.status(403).json({
         message:
-          "Please fill in all required fields, including name, price, category, subCategory, description, images, and brand in red asterisk.",
+        "Please fill in all required fields, including name, price, category, subCategory, description, images, and brand in red asterisk.",
         status: false,
       });
     }
 
-    const admin = req.admin as { _id: string } | undefined;
 
-    const vendor = admin?._id;
-
-    if (!vendor) throw new Error("Please Login to publish your product");
+   
 
     const deviceSpec = JSON.parse(req.body.deviceSpecifications || "{}");
     const slug = slugify(req.body.name, {

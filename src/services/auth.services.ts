@@ -43,7 +43,7 @@ export const ADMINSIGNUPTODB = async ({
     lastName,
     phoneNumber,
     businessName,
-    category,
+    category: category.toLowerCase(),
     bankName,
     accountNumber,
     accountName,
