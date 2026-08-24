@@ -4,35 +4,46 @@ const ADMINDETAILS = new Schema(
   {
     firstName: {
       type: String,
-        required: [true, "Please provide a first name"],
+      required: [true, "Please provide a first name"],
       unique: false,
     },
     lastName: {
       type: String,
-        required: [true, "Please provide a last name"],
+      required: [true, "Please provide a last name"],
       unique: false,
     },
     businessName: {
       type: String,
-        required: [true, "Please provide a business name"],
+      required: [true, "Please provide a business name"],
+      unique: false,
+    },
+    accountName: {
+      type: String,
+      required: [true, "Please provide a bank account name"],
+      unique: false,
+    },
+    accountNumber: {
+      type: Number,
+      required: [true, "Please provide a bank account number"],
+      unique: false,
+    },
+    phoneNumber: {
+      type: Number,
+      required: [true, "Please provide your phone number"],
+      unique: true,
+    },
+    bankName: {
+      type: String,
+      required: [true, "Please provide a bank name"],
       unique: false,
     },
     category: {
       type: String,
-        required: [true, "Please provide a category"],
+      required: [true, "Please provide a category"],
       unique: false,
     },
-    bankDetails: {
-      accountNumber: String,
-      bankCode: String,
-      accountName: String,
-    },
+
     uuid: String,
-    // lastName: {
-    //   type: String,
-    //   //   required: [true, "Please provide a last name"],
-    //   unique: false,
-    // },
     email: {
       type: String,
       required: [true, "Please provide an email"],
@@ -42,7 +53,6 @@ const ADMINDETAILS = new Schema(
       type: String,
       required: [true, "Please provide a password"],
     },
-    phone: String,
   },
   { timestamps: true },
 );

@@ -1,22 +1,25 @@
 export type USERSIGNUPTODBTYPE = {
-    email: string,
-    hashedPassword: string
-    firstName: string
-    lastName: string
-}
+  email: string;
+  hashedPassword: string;
+  firstName: string;
+  lastName: string;
+};
 export type ADMINSIGNUPTODBTYPE = {
-    email: string,
-    hashedPassword: string
-    firstName: string
-    lastName: string
-    category: string
-    businessName: string
-    
-}
+  hashedPassword: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: number;
+  businessName: string;
+  category: string;
+  bankName: string;
+  accountNumber: number;
+  accountName: string;
+};
 
 export type RETURNTYPE_USERSIGNUPTODBTYPE = Promise<{
-    userIdToString: string     
-}>
+  userIdToString: string;
+}>;
 export type RETURNTYPE_ADMINSIGNUPTODBTYPE = Promise<{
-    adminIdToString: string     
-}>
+  adminIdToString: string;
+}>;

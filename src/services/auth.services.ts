@@ -25,20 +25,28 @@ export const USERSIGNUPTODB = async ({
   return { userIdToString };
 };
 export const ADMINSIGNUPTODB = async ({
-  email,
   hashedPassword,
-  lastName,
+  email,
   firstName,
+  lastName,
+  phoneNumber,
   businessName,
   category,
+  bankName,
+  accountNumber,
+  accountName,
 }: ADMINSIGNUPTODBTYPE): Promise<RETURNTYPE_ADMINSIGNUPTODBTYPE> => {
   const saveToDatabase = await new Admin({
     email: email.toLowerCase(),
     password: hashedPassword,
-    lastName,
     firstName,
+    lastName,
+    phoneNumber,
     businessName,
     category,
+    bankName,
+    accountNumber,
+    accountName,
   });
 
   const admin = await saveToDatabase.save();

@@ -9,8 +9,18 @@ export const AdminSignup = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { firstName, lastName, businessName, email, password, category } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    businessName,
+    email,
+    password,
+    category,
+    bankName,
+    accountNumber,
+    accountName,
+    phoneNumber,
+  } = req.body;
 
   if (!password || !email) {
     return res
@@ -23,7 +33,11 @@ export const AdminSignup = async (
     !password ||
     !email ||
     !businessName ||
-    !category
+    !category ||
+    !bankName ||
+    !accountNumber ||
+    !accountName ||
+    !phoneNumber
   ) {
     return res
       .status(403)
@@ -61,12 +75,16 @@ export const AdminSignup = async (
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const { adminIdToString } = await ADMINSIGNUPTODB({
-      email,
       hashedPassword,
+      email,
       firstName,
       lastName,
+      phoneNumber,
       businessName,
       category,
+      bankName,
+      accountNumber,
+      accountName,
     });
 
     return res.status(200).json({
