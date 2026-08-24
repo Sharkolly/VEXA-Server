@@ -19,15 +19,18 @@ export const getProductsFromDB = async () => {
   "arts & crafts"
 ]
   const data = await Promise.all(
-    categories.map(async (category) => {
-      const products = await Product.find({ category }).limit(8);
+  categories.map(async (category) => {
+    const products = await Product.aggregate([
+      { $match: { category } },
+      { $sample: { size: 10} },
+    ]);
 
-      return {
-        category,
-        products,
-      };
-    }),
-  );
+    return {
+      category,
+      products,
+    };
+  }),
+);
 
   return data;
 };

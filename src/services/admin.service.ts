@@ -10,7 +10,7 @@ export const createProduct = async (product: ProductType) => {
 
 export const fetchProductByVendor = async (vendorId: string) => {
   try {
-    const product = await Product.find({ vendor: vendorId });
+    const product = await Product.find({ vendor: vendorId }).sort({ createdAt: -1 });
 
     return product;
   } catch (error) {
