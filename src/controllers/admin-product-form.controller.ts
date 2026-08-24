@@ -25,11 +25,25 @@ export const ProductForm = async (
       size,
     } = req.body;
 
+    if (
+      !name ||
+      !price ||
+      !category ||
+      !subCategory ||
+      !description ||
+      !images ||
+      !brand
+    ) {
+      return res.status(403).json({
+        message:
+          "Please fill in all required fields, including name, price, category, subCategory, description, images, and brand in red asterisk.",
+        status: false,
+      });
+    }
+
     const admin = req.admin as { _id: string } | undefined;
 
     const vendor = admin?._id;
-
-    // console.log(req.body)
 
     if (!vendor) throw new Error("Please Login to publish your product");
 
