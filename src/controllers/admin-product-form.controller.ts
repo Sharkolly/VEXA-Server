@@ -32,7 +32,7 @@ export const ProductForm = async (
       !subCategory ||
       !description ||
       !images ||
-      !brand
+      !condition    
     ) {
       return res.status(403).json({
         message:

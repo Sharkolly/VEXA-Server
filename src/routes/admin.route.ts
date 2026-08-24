@@ -9,6 +9,7 @@ import admin from "../controllers/admin.controller";
 import { processMediaUpload } from "../config/CloudinaryStorage.config";
 import { ProductForm } from "../controllers/admin-product-form.controller";
 import { getAdminProduct } from "../controllers/getAdminProduct.controller";
+import { deleteProduct } from "../controllers/admin-delete-product.controller";
 
 const router = Router();
 
@@ -21,5 +22,7 @@ router.get("/", admin_token_verify, admin);
 router.get("/product", admin_token_verify, getAdminProduct);
 
 router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
+
+router.delete('/delete/:productId', admin_token_verify, deleteProduct);
 
 export default router;

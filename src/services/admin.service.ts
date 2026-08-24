@@ -18,3 +18,11 @@ export const fetchProductByVendor = async (vendorId: string) => {
     throw new Error("Error fetching product by vendor");
   }
 };
+
+export const deleteAdminProduct = async (id: string) => {
+  const deletedProduct = await Product.findByIdAndDelete(id);
+  if (!deletedProduct) {
+    throw new Error("Product not found");
+  }
+  return deletedProduct;
+};
