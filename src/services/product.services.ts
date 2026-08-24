@@ -22,7 +22,7 @@ export const getProductsFromDB = async () => {
   categories.map(async (category) => {
     const products = await Product.aggregate([
       { $match: { category } },
-      { $sample: { size: 8 } },
+      { $sample: { size: 10} },
     ]);
 
     return {
