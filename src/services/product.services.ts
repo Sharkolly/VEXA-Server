@@ -18,21 +18,31 @@ export const getProductsFromDB = async () => {
   "musical-instruments",
   "arts-crafts"
 ]
-  const data = await Promise.all(
-  categories.map(async (category) => {
+  const shuffledCategories = [...categories];
+
+for (let i = shuffledCategories.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffledCategories[i], shuffledCategories[j]] = [
+    shuffledCategories[j],
+    shuffledCategories[i],
+  ];
+}
+
+const data = await Promise.all(
+  shuffledCategories.map(async (category) => {
     const products = await Product.aggregate([
       { $match: { category } },
-      { $sample: { size: 10} },
+      { $sample: { size: 10 } },
     ]);
 
     return {
       category,
       products,
     };
-  }),
+  })
 );
 
-  return data;
+return data;
 };
 
 export const getCategory = async () => {
