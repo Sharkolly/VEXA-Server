@@ -4,19 +4,19 @@ export const getProductsFromDB = async () => {
   const categories = [
   "electronics",
   "fashion",
-  "beauty & health",
-  "home & kitchen",
+  "beauty-health",
+  "home-kitchen",
   "automobile",
-  "sports & outdoors",
-  "books & education",
-  "baby products",
+  "sports-outdoors",
+  "books-education",
+  "baby-products",
   "groceries",
-  "pet supplies",
-  "industrial & tools",
-  "office supplies",
+  "pet-supplies",
+  "industrial-tools",
+  "office-supplies",
   "gaming",
-  "musical instruments",
-  "arts & crafts"
+  "musical-instruments",
+  "arts-crafts"
 ]
   const data = await Promise.all(
   categories.map(async (category) => {
