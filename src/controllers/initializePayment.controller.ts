@@ -180,7 +180,7 @@ const initializePayment = async (
         email: userDetails.email,
 
         // Paystack uses kobo
-        amount: Math.round(total + userDetails.deliveryFee * 100),
+        amount: Math.round((total + userDetails.deliveryFee) * 100),
 
         reference: `FEXA-${order._id}`,
 
