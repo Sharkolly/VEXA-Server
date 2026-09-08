@@ -27,6 +27,13 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use(
+  "/api/products/webhook",
+  express.raw({
+    type: "application/json"
+  })
+);
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 

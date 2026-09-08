@@ -42,7 +42,11 @@ const ADMINDETAILS = new Schema(
       required: [true, "Please provide a category"],
       unique: false,
     },
+    paystackSubaccountCode: {
+      type: String,
+      default: null
 
+    },
     uuid: String,
     email: {
       type: String,

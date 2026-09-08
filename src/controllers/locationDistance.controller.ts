@@ -44,7 +44,6 @@ const getDeliveryLocationDistance = async (
     );
 
     const route = response.data.routes?.[0];
-    console.log(route);
 
     if (!route) {
       return res.status(400).json({
@@ -59,7 +58,7 @@ const getDeliveryLocationDistance = async (
     let deliveryFee;
 
     if (distanceKm <= 5) {
-      deliveryFee = 2000;
+      deliveryFee = 3000;
     } else if (distanceKm <= 10) {
       deliveryFee = 3500;
     } else if (distanceKm <= 20) {
