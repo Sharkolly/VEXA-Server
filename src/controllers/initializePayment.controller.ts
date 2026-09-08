@@ -16,8 +16,6 @@ const initializePayment = async (
     const cart = details.CartedProduct;
     const userDetails = details.deliveryDetails;
 
-    console.log(userDetails);
-
     if (!cart || cart.length === 0) {
       return res.status(400).json({
         message: "Cart is empty",
@@ -26,7 +24,7 @@ const initializePayment = async (
 
     
     const productIds = cart.map((item: { _id: string }) => item._id);
-    console.log(cart);
+    
 
     const products = await Product.find({
       _id: {
@@ -182,7 +180,7 @@ const initializePayment = async (
         email: userDetails.email,
 
         // Paystack uses kobo
-        amount: Math.round(total * 100),
+        amount: Math.round(total + userDetails.deliveryFee * 100),
 
         reference: `FEXA-${order._id}`,
 
