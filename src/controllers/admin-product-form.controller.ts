@@ -37,11 +37,12 @@ export const ProductForm = async (
       !subCategory ||
       !description ||
       !images ||
-      !condition    
+      !condition   ||
+      !color 
     ) {
       return res.status(403).json({
         message:
-        "Please fill in all required fields, including name, price, category, subCategory, description, images, and brand in red asterisk.",
+        "Please fill in all required fields, including name, price, category, subCategory, description,color, images, and brand in red asterisk.",
         status: false,
       });
     }

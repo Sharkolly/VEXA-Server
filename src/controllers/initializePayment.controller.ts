@@ -106,15 +106,17 @@ const initializePayment = async (
 
     const vendorAmounts: Record<string, number> = {};
 
-    for (const item of orderItems) {
-      const vendorId = item.vendor.toString();
+    // for (const item of orderItems) {
+    //   if(item.vendor == null || item.vendor == undefined) throw new Error('No vendor in this item')
+    //   const vendorId = item.vendor.toString();
 
-      if (!vendorAmounts[vendorId]) {
-        vendorAmounts[vendorId] = 0;
-      }
 
-      vendorAmounts[vendorId] += item.price * item.quantity;
-    }
+    //   if (!vendorAmounts[vendorId]) {
+    //     vendorAmounts[vendorId] = 0;
+    //   }
+
+    //   vendorAmounts[vendorId] += item.price * item.quantity;
+    // }
 
     /*
       Example:

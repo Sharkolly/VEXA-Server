@@ -18,6 +18,18 @@ export const fetchProductByVendor = async (vendorId: string) => {
     throw new Error("Error fetching product by vendor");
   }
 };
+export const fetchProductByVendorAndDetails = async (vendorId: string) => {
+  try {
+    const product = await Product.find({ vendor: vendorId })
+    // .populate('vendor', 'businessName category');
+    console.log(product)
+
+    return product;
+  } catch (error) {
+    console.error("Error fetching product by vendor:", error);
+    throw new Error("Error fetching product by vendor");
+  }
+};
 
 export const deleteAdminProduct = async (id: string) => {
   const deletedProduct = await Product.findByIdAndDelete(id);

@@ -102,7 +102,10 @@ const productSchema = new Schema(
     brand: { type: String, trim: true },
     discount: { type: Number, default: 0, min: 0 },
     color: { type: String, required: false, trim: true },
-    vendor: {type: String, required: true},
+     vendor: {
+    type: Schema.Types.ObjectId,
+    ref: "Admin",
+  },
     deviceSpecifications: {
       type: deviceSpecificationsSchema,
       required: false,

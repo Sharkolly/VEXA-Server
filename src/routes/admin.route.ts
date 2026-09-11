@@ -10,6 +10,9 @@ import { processMediaUpload } from "../config/CloudinaryStorage.config";
 import { ProductForm } from "../controllers/admin-product-form.controller";
 import { getAdminProduct } from "../controllers/getAdminProduct.controller";
 import { deleteProduct } from "../controllers/admin-delete-product.controller";
+import { VendorProduct } from "../controllers/VendorProduct.controller";
+
+
 
 const router = Router();
 
@@ -20,6 +23,10 @@ router.get("/", admin_token_verify, admin);
 
 // router.post("/product", productMediaFields, AddProduct);
 router.get("/product", admin_token_verify, getAdminProduct);
+
+router.get('/vendor/:vendorId', VendorProduct); 
+
+
 
 router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
 
