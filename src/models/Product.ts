@@ -24,7 +24,6 @@ import { Schema, model } from "mongoose";
 //   operating_system?: string;
 // }
 
-
 // export interface IProduct {
 //   name: string;
 //   slug: string;
@@ -33,8 +32,8 @@ import { Schema, model } from "mongoose";
 //   subCategory: string;
 //   tags?: string;
 //   description: string;
-//   images: string[]; 
-//   video?: string | null; 
+//   images: string[];
+//   video?: string | null;
 //   brand?: string;
 //   discount?: number;
 //   color: string;
@@ -52,7 +51,6 @@ import { Schema, model } from "mongoose";
 //   updatedAt: Date;
 //   vendor: string
 // }
-
 
 const deviceSpecificationsSchema = new Schema(
   {
@@ -85,7 +83,7 @@ const deviceSpecificationsSchema = new Schema(
     },
     operating_system: { type: String, trim: true },
   },
-  { _id: false } 
+  { _id: false },
 );
 
 const productSchema = new Schema(
@@ -102,10 +100,14 @@ const productSchema = new Schema(
     brand: { type: String, trim: true },
     discount: { type: Number, default: 0, min: 0 },
     color: { type: String, required: false, trim: true },
-     vendor: {
-    type: Schema.Types.ObjectId,
-    ref: "Admin",
-  },
+    vendor: {
+      type: String,
+      required: true,      
+    },
+    //    vendor: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Admin",
+    // },
     deviceSpecifications: {
       type: deviceSpecificationsSchema,
       required: false,
@@ -124,7 +126,7 @@ const productSchema = new Schema(
         "Mint",
         "Nigerian Used",
       ],
-      default: 'Nigerian Used'
+      default: "Nigerian Used",
     },
     size: {
       type: String,
@@ -133,8 +135,8 @@ const productSchema = new Schema(
     },
   },
   {
-    timestamps: true, 
-  }
+    timestamps: true,
+  },
 );
 
 const Product = model("Product", productSchema);

@@ -20,8 +20,8 @@ export const fetchProductByVendor = async (vendorId: string) => {
 };
 export const fetchProductByVendorAndDetails = async (vendorId: string) => {
   try {
-    const product = await Product.find({ vendor: vendorId })
-    // .populate('vendor', 'businessName category');
+    console.log(vendorId)
+    const product = await Product.find({ vendor: vendorId }).populate('vendor', 'businessName category');
     console.log(product)
 
     return product;
