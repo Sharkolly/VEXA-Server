@@ -26,7 +26,7 @@ export const fetchProductByVendor = async (vendorId: string) => {
 export const fetchProductByVendorAndDetails = async (vendorId: string) => {
   try {
     const vendor = await Admin.findById(vendorId).select(
-      "accountName email phoneNumber profileImage businessName category createdAt ",
+      "accountName email phoneNumber profileImage businessName category createdAt businessDescription",
     );
 
     const product = await Product.find({ vendor: vendorId });
