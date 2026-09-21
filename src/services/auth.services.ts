@@ -35,6 +35,7 @@ export const ADMINSIGNUPTODB = async ({
   bankName,
   accountNumber,
   accountName,
+  businessDescription
 }: ADMINSIGNUPTODBTYPE): Promise<RETURNTYPE_ADMINSIGNUPTODBTYPE> => {
   const saveToDatabase = await new Admin({
     email: email.toLowerCase(),
@@ -47,6 +48,7 @@ export const ADMINSIGNUPTODB = async ({
     bankName,
     accountNumber,
     accountName,
+    businessDescription
   });
 
   const admin = await saveToDatabase.save();

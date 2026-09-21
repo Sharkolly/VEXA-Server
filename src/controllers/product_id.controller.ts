@@ -7,8 +7,8 @@ export const getProduct = async (
   next: NextFunction,
 ) => {
   try {
-    const { slug, category, subCategory } = req.params;
-    const product = await getProductSlug(slug, category, subCategory);
+    const { slug, category, subCategory, id } = req.params;
+    const product = await getProductSlug(slug, category, subCategory, id);
     return res.status(200).json({ status: "success", data: product });
   } catch (error) {
     next(error);

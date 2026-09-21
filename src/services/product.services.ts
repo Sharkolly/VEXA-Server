@@ -76,8 +76,8 @@ export const getAllProductsFromDB = async () => {
   return product;
 };
 
-export const getProductSlug = async (slug: string, category: string, subCategory: string) => {
-  const product = await Product.findOne({slug, category, subCategory});
+export const getProductSlug = async (slug: string, category: string, subCategory: string, id:string) => {
+  const product = await Product.findOne({slug, category, subCategory, _id: id});
   // console.log(product);
   return product;
 };

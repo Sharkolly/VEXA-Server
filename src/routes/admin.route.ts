@@ -24,7 +24,7 @@ router.get("/", admin_token_verify, admin);
 // router.post("/product", productMediaFields, AddProduct);
 router.get("/product", admin_token_verify, getAdminProduct);
 
-router.get('/vendor/:vendorId', VendorProduct); 
+router.get('/:vendorId', VendorProduct); 
 
 
 

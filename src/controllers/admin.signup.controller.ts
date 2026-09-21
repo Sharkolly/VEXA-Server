@@ -20,8 +20,11 @@ export const AdminSignup = async (
     accountNumber,
     accountName,
     phoneNumber,
+    businessDescription,
   } = req.body;
 
+
+  console.log(businessDescription);
   if (!password || !email) {
     return res
       .status(403)
@@ -37,7 +40,8 @@ export const AdminSignup = async (
     !bankName ||
     !accountNumber ||
     !accountName ||
-    !phoneNumber
+    !phoneNumber ||
+    !businessDescription
   ) {
     return res
       .status(403)
@@ -65,12 +69,43 @@ export const AdminSignup = async (
       success: false,
     });
   }
+  const normalizePhone = (phone: number) => {
+
+    let phoneNumber = String(phone).trim();
+
+    if (phoneNumber.startsWith("0")) {
+      const newNumber = "+234" + phoneNumber.slice(1);
+      return Number(newNumber);
+    }
+
+    if (phoneNumber.startsWith("234")) {
+      const newNumber = "+" + phoneNumber;
+      return Number(newNumber);
+    }
+
+    if (phoneNumber.startsWith("+234")) {
+      return Number(phoneNumber);
+    }
+
+    const newNumber = "+234" + phoneNumber;
+    return Number(newNumber);
+  };
 
   try {
     const AdminExists = await Admin.findOne({ email });
-
     if (AdminExists)
       return res.status(401).json({ message: "Email Exists", success: false });
+
+    const formattedPhone = Number(normalizePhone(phoneNumber));
+
+    const AdminNumberExists = await Admin.findOne({
+      phoneNumber: formattedPhone,
+    });
+
+    if (AdminNumberExists)
+      return res
+        .status(401)
+        .json({ message: "Phone Number Exists", success: false });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -85,6 +120,7 @@ export const AdminSignup = async (
       bankName,
       accountNumber,
       accountName,
+      businessDescription,
     });
 
     return res.status(200).json({

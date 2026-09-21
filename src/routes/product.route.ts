@@ -23,7 +23,7 @@ router.get("/category", Category);
 
 router.get("/category/:category", RelatedCategory);
 
-router.get("/:category/:subCategory/:slug", getProduct);
+router.get("/:category/:subCategory/:slug/:id", getProduct);
 
 
 router.post('/get-distance',token_verify,   getDeliveryLocationDistance)

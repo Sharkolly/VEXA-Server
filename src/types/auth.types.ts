@@ -9,12 +9,13 @@ export type ADMINSIGNUPTODBTYPE = {
   email: string;
   firstName: string;
   lastName: string;
-  phoneNumber: number;
+  phoneNumber: number ;
   businessName: string;
   category: string;
   bankName: string;
   accountNumber: number;
   accountName: string;
+  businessDescription: string;
 };
 
 export type RETURNTYPE_USERSIGNUPTODBTYPE = Promise<{

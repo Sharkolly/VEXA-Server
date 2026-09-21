@@ -22,6 +22,11 @@ const ADMINDETAILS = new Schema(
       required: [true, "Please provide a bank account name"],
       unique: false,
     },
+    businessDescription: {
+      type: String,
+      required: [true, "Please provide your business description"],
+      unique: false,
+    },
     accountNumber: {
       type: Number,
       required: [true, "Please provide a bank account number"],

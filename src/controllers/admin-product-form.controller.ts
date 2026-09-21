@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { createProduct } from "../services/admin.service";
 import slugify from "slugify";
+import Product from "../models/Product";
 
 export const ProductForm = async (
   req: Request,
@@ -9,9 +10,9 @@ export const ProductForm = async (
 ) => {
   const admin = req.admin as { _id: string } | undefined;
 
-   const vendor = admin?._id;
+  const vendor = admin?._id;
 
-    if (!vendor) throw new Error("Please Login to publish your product");
+  if (!vendor) throw new Error("Please Login to publish your product");
   try {
     const {
       name,
@@ -37,18 +38,15 @@ export const ProductForm = async (
       !subCategory ||
       !description ||
       !images ||
-      !condition   ||
-      !color 
+      !condition ||
+      !color
     ) {
       return res.status(403).json({
         message:
-        "Please fill in all required fields, including name, price, category, subCategory, description,color, images, and brand in red asterisk.",
+          "Please fill in all required fields, including name, price, category, subCategory, description,color, images, and brand in red asterisk.",
         status: false,
       });
     }
-
-
-   
 
     const deviceSpec = JSON.parse(req.body.deviceSpecifications || "{}");
     const slug = slugify(req.body.name, {
@@ -74,6 +72,15 @@ export const ProductForm = async (
       slug,
       vendor,
     };
+
+    // const checkIfSlugExists = await Product.findOne({ slug });
+
+    // if (checkIfSlugExists) {
+    //   res.status(403).json({
+    //     status: false,
+    //     message: "Product with this name already exists. Please use another name",
+    //   });
+    // }
     const createdProduct = await createProduct(product);
 
     return res.status(201).json({
