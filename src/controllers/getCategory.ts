@@ -8,9 +8,9 @@ export const Category = async (
 ) => {
   const { search } = req.query || "";
   try {
-    const subCategories = await getCategory();
+    // const subCategories = await getCategory();
     const searchedProducts = await searchCategory(search as string);
-       return res.status(200).json({ status: "success", data: searchedProducts, subCategories });
+       return res.status(200).json({ status: "success", data: searchedProducts,  });
   } catch (err) {
     next(err);
   }
