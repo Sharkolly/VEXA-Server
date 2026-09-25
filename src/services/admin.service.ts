@@ -3,9 +3,6 @@ import Admin from "../models/Admin";
 import type { ProductType } from "../types/product.types";
 
 export const createProduct = async (product: ProductType) => {
-
- 
-
   const newProduct = await new Product(product);
   const savedProduct = await newProduct.save();
   return savedProduct;
@@ -43,4 +40,15 @@ export const deleteAdminProduct = async (id: string) => {
     throw new Error("Product not found");
   }
   return deletedProduct;
+};
+
+export const getVendorSingleProduct = async (
+  vendorId: string,
+  productId: string,
+) => {
+  const getProduct = await Product.findOne({
+    vendor: vendorId,
+    _id: productId,
+  });
+  return getProduct;
 };

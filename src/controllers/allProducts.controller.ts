@@ -5,6 +5,7 @@ import {getProductsFromDB} from '../services/product.services'
 export const getAllPro = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const all_products = await getProductsFromDB();
+        // console.log(all_products);
         return res.status(201).json({status: 'success', data: all_products});
     }
 

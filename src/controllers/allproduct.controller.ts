@@ -12,15 +12,16 @@ export const getAllProducts = async (
 ) => {
   const { search } = req.query || "";
   try {
-    const categories = await getCategory();
+    const subCategories = await getCategory();
+    console.log(search)
     if (search) {
       const { product } = await searchProduct(search as string);
       return res
         .status(200)
-        .json({ status: "success", data: product, categories });
+        .json({ status: "success", data: product, subCategories });
     }
     const allProducts = await getAllProductsFromDB();    
-    res.status(200).json({ status: "success", data: allProducts, categories });
+    res.status(200).json({ status: "success", data: allProducts, subCategories });
   } catch (error) {
     next(error);
   }
