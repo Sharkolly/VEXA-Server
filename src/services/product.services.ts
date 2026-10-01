@@ -203,7 +203,7 @@ export const searchCategory = async (category: string) => {
   let product;
 
   console.log(category)
-  if (category == "All") {
+  if (category == "all") {
     //product = await Product.find().limit(15);
     product = await Product.aggregate([
       {

@@ -10,6 +10,7 @@ import  initializePayment  from "../controllers/initializePayment.controller";
 import getDeliveryLocationDistance from '../controllers/locationDistance.controller'   
 import { paystackWebhook } from "../controllers/PaystackWebHook";
 import express from 'express'
+import { AllCategory } from "../controllers/allCategory.controler";
 
 const router = Router();
 
@@ -24,6 +25,8 @@ router.get("/category", Category);
 router.get("/category/:category", RelatedCategory);
 
 router.get("/:category/:subCategory/:slug/:id", getProduct);
+
+router.get('/all-category', AllCategory)
 
 
 router.post('/get-distance',token_verify,   getDeliveryLocationDistance)
