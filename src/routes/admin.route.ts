@@ -12,6 +12,8 @@ import { getAdminProduct } from "../controllers/getAdminProduct.controller";
 import { deleteProduct } from "../controllers/admin-delete-product.controller";
 import { VendorProduct } from "../controllers/VendorProduct.controller";
 import { getSingleProduct } from "../controllers/getSingleProduct.controller";
+import { AllBanks } from "../controllers/getAllBanks.controller";
+import { GetUserBankName } from "../controllers/getUserBankName.controller";
 
 
 
@@ -25,9 +27,11 @@ router.get("/", admin_token_verify, admin);
 // router.post("/product", productMediaFields, AddProduct);
 router.get("/product", admin_token_verify, getAdminProduct);
 
-router.get('/:vendorId', VendorProduct); 
+router.get('/vendor/:vendorId', VendorProduct); 
 
+router.get('/get-all-banks', AllBanks);
 
+router.post('/get-user-bank-name', GetUserBankName)
 
 router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
 

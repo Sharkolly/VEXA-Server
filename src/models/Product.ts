@@ -100,11 +100,12 @@ const productSchema = new Schema(
     brand: { type: String, trim: true },
     discount: { type: Number, default: 0, min: 0 },
     color: { type: String, required: false, trim: true },
+    out_of_stock: { type: Boolean, default: false },
     // vendor: {
     //   type: String,
-    //   required: true,      
+    //   required: true,
     // },
-       vendor: {
+    vendor: {
       type: Schema.Types.ObjectId,
       ref: "Admin",
     },

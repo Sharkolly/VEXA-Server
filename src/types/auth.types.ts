@@ -12,7 +12,10 @@ export type ADMINSIGNUPTODBTYPE = {
   phoneNumber: number ;
   businessName: string;
   category: string;
-  bankName: string;
+  bankName: {
+    name: string;
+    code: string
+  };
   accountNumber: number;
   accountName: string;
   businessDescription: string;

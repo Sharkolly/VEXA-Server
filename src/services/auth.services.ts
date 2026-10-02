@@ -45,8 +45,9 @@ export const ADMINSIGNUPTODB = async ({
     phoneNumber,
     businessName,
     category: category.toLowerCase(),
-    bankName,
     accountNumber,
+    bankName: bankName.name,
+    bankCode: bankName.code,
     accountName,
     businessDescription
   });

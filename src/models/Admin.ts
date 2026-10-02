@@ -42,6 +42,11 @@ const ADMINDETAILS = new Schema(
       required: [true, "Please provide a bank name"],
       unique: false,
     },
+    bankCode: {
+      type: String,
+      required: [true, "Please provide a bank code"],
+      
+    },
     category: {
       type: String,
       required: [true, "Please provide a category"],

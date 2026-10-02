@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { ADMINSIGNUPTODB } from "../services/auth.services";
 import Admin from "../models/Admin";
+import axios from "axios";
 
 export const AdminSignup = async (
   req: Request,
@@ -24,7 +25,6 @@ export const AdminSignup = async (
   } = req.body;
 
 
-  console.log(businessDescription);
   if (!password || !email) {
     return res
       .status(403)
@@ -70,7 +70,6 @@ export const AdminSignup = async (
     });
   }
   const normalizePhone = (phone: number) => {
-
     let phoneNumber = String(phone).trim();
 
     if (phoneNumber.startsWith("0")) {
@@ -106,6 +105,25 @@ export const AdminSignup = async (
       return res
         .status(401)
         .json({ message: "Phone Number Exists", success: false });
+
+    const response = await axios.post(
+      "https://api.paystack.co/subaccount",
+      {
+        business_name: businessName,
+        settlement_bank: bankName.code,
+        account_number: accountNumber,
+        percentage_charge: 10,
+        primary_contact_email: email,
+        primary_contact_name: accountName,
+        primary_contact_phone: phoneNumber,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
