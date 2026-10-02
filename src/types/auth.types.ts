@@ -19,6 +19,9 @@ export type ADMINSIGNUPTODBTYPE = {
   accountNumber: number;
   accountName: string;
   businessDescription: string;
+  
+  
+subaccount_code: string
 };
 
 export type RETURNTYPE_USERSIGNUPTODBTYPE = Promise<{

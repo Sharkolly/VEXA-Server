@@ -106,7 +106,7 @@ export const AdminSignup = async (
         .status(401)
         .json({ message: "Phone Number Exists", success: false });
 
-    const response = await axios.post(
+    const {data} = await axios.post(
       "https://api.paystack.co/subaccount",
       {
         business_name: businessName,
@@ -125,6 +125,8 @@ export const AdminSignup = async (
       },
     );
 
+const {subaccount_code} = data.data;
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const { adminIdToString } = await ADMINSIGNUPTODB({
@@ -139,6 +141,7 @@ export const AdminSignup = async (
       accountNumber,
       accountName,
       businessDescription,
+      subaccount_code,
     });
 
     return res.status(200).json({

@@ -45,7 +45,6 @@ const ADMINDETAILS = new Schema(
     bankCode: {
       type: String,
       required: [true, "Please provide a bank code"],
-      
     },
     category: {
       type: String,
@@ -54,8 +53,7 @@ const ADMINDETAILS = new Schema(
     },
     paystackSubaccountCode: {
       type: String,
-      default: null
-
+      required: [true, "Please provide your paystack code"],
     },
     uuid: String,
     email: {
