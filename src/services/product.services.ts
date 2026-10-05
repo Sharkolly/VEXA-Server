@@ -199,57 +199,56 @@ export const searchProduct = async (search: string) => {
   return { product };
 };
 
-export const searchCategory = async (category: string) => {
-  let product;
+// export const searchCategory = async (category: string) => {
+//   let product;
 
-  console.log(category)
-  if (category == "all") {
-    //product = await Product.find().limit(15);
-    product = await Product.aggregate([
-      {
-        $sample: {
-          size: 15,
-        },
-      },
-      {
-        $project: {
-          name: 1,
-          price: 1,
-          description: 1,
-          category: 1,
-          subCategory: 1,
-          brand: 1,
-          discount: 1,
-          createdAt: 1,
-          images: 1,
-          slug: 1,
-        },
-      },
-    ]);
-  } else {
-    // product = await Product.find({ category }).limit(15);
+//   console.log(category)
+//   if (category == "all") {
+//     product = await Product.aggregate([
+//       {
+//         $sample: {
+//           size: 15,
+//         },
+//       },
+//       {
+//         $project: {
+//           name: 1,
+//           price: 1,
+//           description: 1,
+//           category: 1,
+//           subCategory: 1,
+//           brand: 1,
+//           discount: 1,
+//           createdAt: 1,
+//           images: 1,
+//           slug: 1,
+//         },
+//       },
+//     ]);
+//   } else {
+//     // product = await Product.find({ category }).limit(15);
 
-    product = await Product.aggregate([
-      { $match: { subCategory: category } },
-      { $sample: { size: 15 } },
-      {
-        $project: {
-          name: 1,
-          price: 1,
-          description: 1,
-          images: 1,
-          subCategory: 1,
-          slug: 1,
-          category: 1,
-          brand: 1,
-          discount: 1,
-          createdAt: 1,
-        },
-      },
-    ]);
-  }
-  return product;
-};
+//     product = await Product.aggregate([
+//       { $match: { subCategory: category } },
+//       { $sample: { size: 15 } },
+//       {
+//         $project: {
+//           name: 1,
+//           price: 1,
+//           description: 1,
+//           images: 1,
+//           subCategory: 1,
+//           slug: 1,
+//           category: 1,
+//           brand: 1,
+//           discount: 1,
+//           createdAt: 1,
+//         },
+//       },
+//     ]);
+//   }
+//   return product;
+// };
 
 export const relatedCategory = async (category: string) => {
   // const product = await Product.find({ category }).limit(4);
@@ -309,4 +308,51 @@ export const GetHomeProduct = async () => {
   // });
 
   return product;
+};
+
+
+// export const totalProduct = async  (skip: number, limit: number)  => {
+  
+//     const totalProducts = await Product.countDocuments();
+  
+//     const products = await Product.find()
+//       .skip(skip)
+//       .limit(limit)
+//       .sort({ createdAt: -1 });
+
+//     return {totalProducts, products}
+// }
+
+
+
+export const searchCategory = async (
+  category: string,
+  page: number = 1,
+  limit: number = 15
+) => {
+  const skip = (page - 1) * limit;
+
+  const filter =
+    category === "all"
+      ? {}
+      : { subCategory: category };
+
+  const [products, totalProducts] = await Promise.all([
+    Product.find(filter)
+      .select(
+        "name price description category subCategory brand discount createdAt images slug"
+      )
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit),
+
+    Product.countDocuments(filter),
+  ]);
+
+  return {
+    products,
+    currentPage: page,
+    totalPages: Math.ceil(totalProducts / limit),
+    totalProducts,
+  };
 };
