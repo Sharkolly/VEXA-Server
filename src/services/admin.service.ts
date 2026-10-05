@@ -20,9 +20,9 @@ export const fetchProductByVendor = async (vendorId: string) => {
     throw new Error("Error fetching product by vendor");
   }
 };
-export const fetchProductByVendorAndDetails = async (vendorId: string) => {
+export const fetchProductByVendorAndDetails = async (vendorId: string, businessName: string) => {
   try {
-    const vendor = await Admin.findById(vendorId).select(
+    const vendor = await Admin.find({vendorId, businessName}).select(
       "accountName email phoneNumber profileImage businessName category createdAt businessDescription",
     );
 

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import slugify from "slugify";
 import { ADMINSIGNUPTODB } from "../services/auth.services";
 import Admin from "../models/Admin";
 import axios from "axios";
@@ -23,7 +23,6 @@ export const AdminSignup = async (
     phoneNumber,
     businessDescription,
   } = req.body;
-
 
   if (!password || !email) {
     return res
@@ -101,15 +100,20 @@ export const AdminSignup = async (
       phoneNumber: formattedPhone,
     });
 
+    const newBusinessName = slugify(req.body.businessName, {
+      lower: true,
+      strict: true,
+    });
+
     if (AdminNumberExists)
       return res
         .status(401)
         .json({ message: "Phone Number Exists", success: false });
 
-    const {data} = await axios.post(
+    const { data } = await axios.post(
       "https://api.paystack.co/subaccount",
       {
-        business_name: businessName,
+        business_name: newBusinessName,
         settlement_bank: bankName.code,
         account_number: accountNumber,
         percentage_charge: 10,
@@ -125,7 +129,7 @@ export const AdminSignup = async (
       },
     );
 
-const {subaccount_code} = data.data;
+    const { subaccount_code } = data.data;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -135,7 +139,7 @@ const {subaccount_code} = data.data;
       firstName,
       lastName,
       phoneNumber,
-      businessName,
+      newBusinessName,
       category,
       bankName,
       accountNumber,

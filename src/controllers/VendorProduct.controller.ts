@@ -7,8 +7,8 @@ export const VendorProduct = async (
   next: NextFunction,
 ) => {
   try {
-    const { vendorId } = req.params;
-    const { product, vendor } = await fetchProductByVendorAndDetails(vendorId);
+    const { vendorId, businessName } = req.params;
+    const { product, vendor } = await fetchProductByVendorAndDetails(vendorId, businessName);
 
     if (!product) {
       return res

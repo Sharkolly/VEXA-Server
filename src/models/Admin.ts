@@ -15,7 +15,7 @@ const ADMINDETAILS = new Schema(
     businessName: {
       type: String,
       required: [true, "Please provide a business name"],
-      unique: false,
+      unique: true,
     },
     accountName: {
       type: String,
