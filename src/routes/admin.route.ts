@@ -14,6 +14,7 @@ import { VendorProduct } from "../controllers/VendorProduct.controller";
 import { getSingleProduct } from "../controllers/getSingleProduct.controller";
 import { AllBanks } from "../controllers/getAllBanks.controller";
 import { GetUserBankName } from "../controllers/getUserBankName.controller";
+import { sendMail } from "../controllers/sendMail.controller";
 
 
 
@@ -38,5 +39,7 @@ router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
 router.delete('/delete/:productId', admin_token_verify, deleteProduct);
 
 router.get('/product/:vendorId/:productId',admin_token_verify, getSingleProduct); 
+
+router.get('/send-mail', sendMail )
 
 export default router;
