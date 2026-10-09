@@ -53,15 +53,15 @@ export const signup = async (req: Request, res: Response) => {
       lastName,
     });
 
-    await sendEmail({
-      to: email,
-      subject: "Welcome to FEXA",
-      html: `
-        <h2>Welcome to FEXA!</h2>
-        <p>Your account has been created successfully.</p>
-        <p>We're happy to have you with us.</p>
-      `,
-    });
+   // await sendEmail({
+     // to: email,
+    //  subject: "Welcome to FEXA",
+   //   html: `
+    //    <h2>Welcome to FEXA!</h2>
+     //   <p>Your account has been created successfully.</p>
+    //    <p>We're happy to have you with us.</p>
+   //   `,
+  //  });
 
     return res
       .status(200)
