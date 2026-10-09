@@ -27,6 +27,7 @@
     "winston": "^3.19.0"
   },
   "dependencies": {
+    "@getbrevo/brevo": "^6.0.3",
     "axios": "^1.16.0",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.10.0",

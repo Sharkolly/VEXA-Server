@@ -3,12 +3,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Person from "../models/User";
 import { USERSIGNUPTODB } from "../services/auth.services";
+import sendEmail from "../helpers/resend.helpers";
 
 export const signup = async (req: Request, res: Response) => {
   const { firstName, lastName, email, password } = req.body;
 
   if (!firstName || !lastName || !password || !email) {
-    return res.status(403).json({ message: "Complete the form", status: false });
+    return res
+      .status(403)
+      .json({ message: "Complete the form", status: false });
   }
 
   const regexForValidPassword =
@@ -19,13 +22,18 @@ export const signup = async (req: Request, res: Response) => {
   if (!regexForValidEmail.test(email)) {
     return res
       .status(403)
-      .json({ message: "Email is not a valid email", success: false, type: 'EMAIL' });
+      .json({
+        message: "Email is not a valid email",
+        success: false,
+        type: "EMAIL",
+      });
   }
 
   if (!regexForValidPassword.test(password)) {
     return res.status(403).json({
       message:
-        "Password must have minimum of 8 characters, 1 Uppercase Letter, 1 Lowercase Letter, 1 Number and 1 Special Character", type: 'PASSWORD',
+        "Password must have minimum of 8 characters, 1 Uppercase Letter, 1 Lowercase Letter, 1 Number and 1 Special Character",
+      type: "PASSWORD",
       success: false,
     });
   }
@@ -38,15 +46,25 @@ export const signup = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const { userIdToString } = await USERSIGNUPTODB({
+    await USERSIGNUPTODB({
       email,
       hashedPassword,
       firstName,
       lastName,
     });
 
+    await sendEmail({
+      to: email,
+      subject: "Welcome to FEXA",
+      html: `
+        <h2>Welcome to FEXA!</h2>
+        <p>Your account has been created successfully.</p>
+        <p>We're happy to have you with us.</p>
+      `,
+    });
+
     return res
       .status(200)
-      .json({ success: true, message: "Account Created Successfully"});
+      .json({ success: true, message: "Account Created Successfully" });
   } catch (err: unknown) {}
 };
