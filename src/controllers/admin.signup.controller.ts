@@ -4,6 +4,8 @@ import slugify from "slugify";
 import { ADMINSIGNUPTODB } from "../services/auth.services";
 import Admin from "../models/Admin";
 import axios from "axios";
+import sendEmail from "../helpers/resend.helpers";
+import { welcomeEmailForVendorsTemplate } from "../templates/welcomeEmailVendors";
 
 export const AdminSignup = async (
   req: Request,
@@ -133,7 +135,7 @@ export const AdminSignup = async (
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const { adminIdToString } = await ADMINSIGNUPTODB({
+    await ADMINSIGNUPTODB({
       hashedPassword,
       email,
       firstName,
@@ -148,9 +150,20 @@ export const AdminSignup = async (
       subaccount_code,
     });
 
+    const getHTML = welcomeEmailForVendorsTemplate({
+      firstName,
+      websiteUrl: "https://vexa-admin.vercel.app/",
+    });
+
+    await sendEmail({
+      to: email,
+      subject: "Welcome to FEXA — Let’s Grow Your Business Together",
+      getHTML,
+    });
+
     return res.status(200).json({
       success: true,
-      message: "Admin Account Created Successfully",
+      message: "Vendor Account Created Successfully",
     });
   } catch (err: unknown) {
     next(err);

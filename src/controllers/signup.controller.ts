@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import Person from "../models/User";
 import { USERSIGNUPTODB } from "../services/auth.services";
 import sendEmail from "../helpers/resend.helpers";
+import { welcomeEmailForUsersTemplate } from "../templates/welcomeEmailUsers";
 
 
 export const signup = async (req: Request, res: Response, next: NextFunction ) => {
@@ -54,10 +55,15 @@ export const signup = async (req: Request, res: Response, next: NextFunction ) =
       lastName,
     });
 
+     const getHTML = welcomeEmailForUsersTemplate({
+      firstName,
+      websiteUrl: "https://fexa-store.vercel.app/shop",
+    });
+
     await sendEmail({
       to: email,
       subject: "Welcome to FEXA — Your Shopping Journey Starts Here!",
-      firstName
+      getHTML,
     });
  
     return res
