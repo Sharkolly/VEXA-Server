@@ -14,6 +14,8 @@ import product_route from "./routes/product.route";
 import logger from "./config/logger";
 import connectToMongoDB from "./config/mongodb.config";
 import Payment from "./models/Payment";
+
+import path from "path";
 // import { initSocket } from "./helpers/socket";
 
 dotenv.config();
@@ -21,9 +23,21 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
+
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174','https://fexa-store.vercel.app','https://fexa-shop.vercel.app', 'https://client-six-liard-83.vercel.app', 'https://vexa-shop.vercel.app', 'https://vexa-admin.vercel.app','https://fexa-admin.vercel.app', 'admin-phi-eight-59.vercel.app', '*'],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://fexa-store.vercel.app",
+      "https://fexa-shop.vercel.app",
+      "https://client-six-liard-83.vercel.app",
+      "https://vexa-shop.vercel.app",
+      "https://vexa-admin.vercel.app",
+      "https://fexa-admin.vercel.app",
+      "admin-phi-eight-59.vercel.app",
+      "*",
+    ],
     credentials: true,
   }),
 );
@@ -31,8 +45,8 @@ app.use(
 app.use(
   "/api/products/webhook",
   express.raw({
-    type: "application/json"
-  })
+    type: "application/json",
+  }),
 );
 app.use(bodyParser.json());
 app.use(morgan("dev"));
@@ -47,18 +61,18 @@ app.get("/", (req: Request, res: Response) => {
   res.json("Hello World");
 });
 app.post("/payment", async (req: Request, res: Response) => {
-  const {amount, reference, status} = req.body;
-  if(!req.body) console.log('Provide one')
+  const { amount, reference, status } = req.body;
+  if (!req.body) console.log("Provide one");
 
-    if(req.body){
-      const paymentData = await Payment.create({
-        amount,
-        reference,
-        status
-      })
-    }
+  if (req.body) {
+    const paymentData = await Payment.create({
+      amount,
+      reference,
+      status,
+    });
+  }
 
-    res.status(200).json({message: status})
+  res.status(200).json({ message: status });
 });
 
 const PORT = process.env.PORT || 5001;

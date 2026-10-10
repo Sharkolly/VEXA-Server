@@ -7,7 +7,9 @@ dotenv.config();
 
 import { BrevoClient } from "@getbrevo/brevo";
 
-const BREVO_API_KEY = process.env.BREVO_API_KEY
+import { welcomeEmailTemplate } from "../templates/welcomeEmail";
+
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
 if (!BREVO_API_KEY) {
   throw new Error("No api key found!");
 }
@@ -18,18 +20,26 @@ const brevo = new BrevoClient({
 type emailType = {
   to: string;
   subject: string;
-  html: string;
+  html?: string;
+  firstName: string;
 };
 
-const sendEmail = async ({ to, subject, html }: emailType) => {
+
+
+const sendEmail = async ({ to, subject, firstName }: emailType) => {
+
+    const getHTML = welcomeEmailTemplate({
+      firstName,
+      websiteUrl: "https://fexa-store.vercel.app/shop",
+    });
   const result = await brevo.transactionalEmails.sendTransacEmail({
     sender: {
-      name: "Foland Realty",
-      email: "YOUR_VERIFIED_SENDER_EMAIL",
+      name: "FEXA",
+      email: process.env.FEXA_EMAIL,
     },
     to: [{ email: to }],
     subject,
-    htmlContent: html,
+    htmlContent: getHTML,
   });
 
   return result;

@@ -1,0 +1,54 @@
+<svg
+  viewBox="0 0 320 90"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="fexaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(5, 0) scale(0.65)">
+    <path
+      d="M 46 42 C 46 22, 84 22, 84 42"
+      stroke="url(#fexaGrad)"
+      stroke-width="9"
+      stroke-linecap="round"
+    />
+
+    <rect
+      x="25"
+      y="42"
+      width="18"
+      height="85"
+      rx="6"
+      fill="url(#fexaGrad)"
+    />
+
+    <path
+      d="M 43 42 H 105 C 111 42, 114 48, 110 54 L 98 72 C 95 76, 89 78, 82 78 H 43 V 42 Z"
+      fill="url(#fexaGrad)"
+    />
+
+    <path
+      d="M 43 90 H 88 C 94 90, 97 96, 93 102 L 84 114 C 81 118, 75 120, 68 120 H 43 V 90 Z"
+      fill="url(#fexaGrad)"
+      opacity="0.9"
+    />
+
+    <circle cx="112" cy="30" r="6" fill="#34D399" />
+  </g>
+
+  <g transform="translate(100, 62)">
+    <text
+      font-family="Inter, system-ui, sans-serif"
+      font-weight="900"
+      font-size="52"
+      letter-spacing="2"
+      fill="#0F172A"
+    >FEX<tspan fill="url(#fexaGrad)">A</tspan></text>
+  </g>
+</svg>

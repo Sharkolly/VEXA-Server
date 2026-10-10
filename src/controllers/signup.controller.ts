@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Person from "../models/User";
 import { USERSIGNUPTODB } from "../services/auth.services";
 import sendEmail from "../helpers/resend.helpers";
 
-export const signup = async (req: Request, res: Response) => {
+
+export const signup = async (req: Request, res: Response, next: NextFunction ) => {
   const { firstName, lastName, email, password } = req.body;
 
   if (!firstName || !lastName || !password || !email) {
@@ -56,15 +57,20 @@ export const signup = async (req: Request, res: Response) => {
     await sendEmail({
       to: email,
       subject: "Welcome to FEXA",
-      html: `
-        <h2>Welcome to FEXA!</h2>
-        <p>Your account has been created successfully.</p>
-        <p>We're happy to have you with us.</p>
-      `,
+      // html: `
+      //   <h2>Welcome to FEXA!</h2>
+      //   <p>Your account has been created successfully.</p>
+      //   <p>We're happy to have you with us.</p>
+      // `,
+      // html: welcomeHtml
+      firstName
     });
-
+ 
     return res
       .status(200)
       .json({ success: true, message: "Account Created Successfully" });
-  } catch (err: unknown) {}
+  } catch (err: unknown) {
+
+    next(err)
+  }
 };
