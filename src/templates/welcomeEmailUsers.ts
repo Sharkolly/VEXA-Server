@@ -24,14 +24,13 @@ export function welcomeEmailForUsersTemplate({
   const safeWebsiteUrl = escapeHtml(websiteUrl);
 
   return `
-  
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
-    <title>Welcome to FEXA — Vendor Account</title>
+    <title>Welcome to FEXA</title>
   </head>
 
   <body
@@ -67,7 +66,7 @@ export function welcomeEmailForUsersTemplate({
               overflow: hidden;
             "
           >
-            <!-- FEXA Logo -->
+            <!-- FEXA Logo: Unchanged -->
             <tr>
               <td align="center" style="padding: 28px 20px;">
                 <img
@@ -105,7 +104,7 @@ export function welcomeEmailForUsersTemplate({
                     text-transform: uppercase;
                   "
                 >
-                  Welcome to the FEXA Marketplace
+                  Welcome to FEXA
                 </p>
 
                 <h1
@@ -117,7 +116,7 @@ export function welcomeEmailForUsersTemplate({
                     color: #ffffff;
                   "
                 >
-                  Let's Grow Your Business!
+                  Welcome to FEXA!
                 </h1>
 
                 <p
@@ -128,7 +127,7 @@ export function welcomeEmailForUsersTemplate({
                     line-height: 1.8;
                   "
                 >
-                  Your products. Your business. More opportunities.
+                  Great products. Great choices. A better shopping experience.
                 </p>
               </td>
             </tr>
@@ -144,24 +143,26 @@ export function welcomeEmailForUsersTemplate({
                 "
               >
                 <p style="margin: 0 0 18px; color: #0f172a;">
-                  Hello <strong>${safeFirstName}</strong>,
+                  Hi <strong>${safeFirstName}</strong>,
                 </p>
 
                 <p style="margin: 0 0 18px;">
-                  Welcome to <strong style="color: #047857;">FEXA!</strong>
-                  We're delighted to have you join our growing community of
-                  vendors. Thank you for choosing FEXA as a platform to showcase
-                  your products, reach customers, and grow your business.
+                  Welcome to
+                  <strong style="color: #047857;">FEXA!</strong>
+                  We're excited to have you join our community. Your account
+                  has been created successfully, and you're all set to explore
+                  a marketplace filled with products for your everyday needs.
+                  Discover products, explore great deals, and enjoy a simpler
+                  shopping experience.
                 </p>
 
                 <p style="margin: 0 0 24px;">
-                  At FEXA, we believe every business deserves the opportunity
-                  to reach more people. Our marketplace is designed to help
-                  vendors present their products to customers looking for
-                  quality, convenience, and great choices.
+                  From discovering new favourites to finding great deals,
+                  FEXA makes it easier to shop for the things you love.
+                  We're glad you're here!
                 </p>
 
-                <!-- Getting Started Section -->
+                <!-- Shopping Benefits Section -->
                 <table
                   role="presentation"
                   width="100%"
@@ -185,46 +186,42 @@ export function welcomeEmailForUsersTemplate({
                           line-height: 1.5;
                         "
                       >
-                        Get Your Store Ready
+                        Your Shopping Journey Starts Here
                       </h2>
 
                       <p style="margin: 0 0 14px; font-size: 14px;">
                         <strong style="color: #047857;">
-                          01. Complete Your Profile
+                          01. Discover Great Products
                         </strong>
                         <br />
-                        Add your business information to establish your
-                        presence on FEXA.
+                        Explore a variety of products to find what you need.
                       </p>
 
                       <p style="margin: 0 0 14px; font-size: 14px;">
                         <strong style="color: #047857;">
-                          02. Upload Your Products
+                          02. Find Great Deals
                         </strong>
                         <br />
-                        Add clear product images, accurate descriptions,
-                        and competitive prices.
+                        Discover great choices and shop for your favourites.
                       </p>
 
                       <p style="margin: 0; font-size: 14px;">
                         <strong style="color: #047857;">
-                          03. Manage Your Store
+                          03. Enjoy Easy Shopping
                         </strong>
                         <br />
-                        Keep your listings updated and provide excellent
-                        customer service.
+                        Find the products you love in one convenient marketplace.
                       </p>
                     </td>
                   </tr>
                 </table>
 
                 <p style="margin: 0 0 24px;">
-                  Your journey as a FEXA vendor starts here. Take the next step
-                  by visiting your vendor dashboard and preparing your store
-                  for customers to discover.
+                  Ready to explore? Start shopping today and discover
+                  something you'll love!
                 </p>
 
-                <!-- Dashboard Button -->
+                <!-- Start Shopping Button -->
                 <table
                   role="presentation"
                   cellspacing="0"
@@ -239,7 +236,7 @@ export function welcomeEmailForUsersTemplate({
                       style="border-radius: 7px;"
                     >
                       <a
-                        href="https://vexa-admin.vercel.app/dashboard"
+                        href="${safeWebsiteUrl}"
                         target="_blank"
                         style="
                           display: inline-block;
@@ -251,15 +248,16 @@ export function welcomeEmailForUsersTemplate({
                           border-radius: 7px;
                         "
                       >
-                        Go to Your Vendor Dashboard &rarr;
+                        Start Shopping &rarr;
                       </a>
                     </td>
                   </tr>
                 </table>
 
                 <p style="margin: 0 0 18px;">
-                  If you have any questions or need assistance setting up your
-                  store, please contact our support team at
+                  If you need help with your account or have any questions,
+                  our team will be happy to assist you. Contact our support
+                  team at
                   <a
                     href="mailto:sharkollymofeoluwa@gmail.com"
                     style="
@@ -270,12 +268,16 @@ export function welcomeEmailForUsersTemplate({
                   >
                     sharkollymofeoluwa@gmail.com
                   </a>.
-                  We're here to help.
                 </p>
 
-                <p style="margin: 25px 0 0; color: #334155;">
-                  Thank you for being part of FEXA. We look forward to
-                  supporting your journey and growing together.
+                <p
+                  style="
+                    margin: 25px 0 0;
+                    color: #334155;
+                  "
+                >
+                  Happy shopping! We're glad to have you as part of the FEXA
+                  community.
                 </p>
 
                 <p
