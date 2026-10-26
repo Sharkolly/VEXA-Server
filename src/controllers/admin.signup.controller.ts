@@ -18,7 +18,7 @@ export const AdminSignup = async (
     businessName,
     email,
     password,
-    category,
+    selectedCategoryAndSubCategory,
     bankName,
     accountNumber,
     accountName,
@@ -37,7 +37,7 @@ export const AdminSignup = async (
     !password ||
     !email ||
     !businessName ||
-    !category ||
+    !selectedCategoryAndSubCategory ||
     !bankName ||
     !accountNumber ||
     !accountName ||
@@ -142,7 +142,7 @@ export const AdminSignup = async (
       lastName,
       phoneNumber,
       newBusinessName,
-      category,
+      selectedCategoryAndSubCategory,
       bankName,
       accountNumber,
       accountName,

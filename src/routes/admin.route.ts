@@ -14,6 +14,7 @@ import { VendorProduct } from "../controllers/VendorProduct.controller";
 import { getSingleProduct } from "../controllers/getSingleProduct.controller";
 import { AllBanks } from "../controllers/getAllBanks.controller";
 import { GetUserBankName } from "../controllers/getUserBankName.controller";
+import { getAvailableSubCategories } from "../controllers/getRemainingCategories.controller";
 // import { sendMail } from "../controllers/sendMail.controller";
 
 
@@ -31,6 +32,8 @@ router.get("/product", admin_token_verify, getAdminProduct);
 router.get('/vendor/:vendorId/:businessName', VendorProduct); 
 
 router.get('/get-all-banks', AllBanks);
+
+router.get('/available-subcategories', getAvailableSubCategories);
 
 router.post('/get-user-bank-name', GetUserBankName)
 

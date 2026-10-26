@@ -1,4 +1,5 @@
 import Admin from "../models/Admin";
+import Category from "../models/Category";
 import Person from "../models/User";
 import {
   ADMINSIGNUPTODBTYPE,
@@ -31,13 +32,20 @@ export const ADMINSIGNUPTODB = async ({
   lastName,
   phoneNumber,
   newBusinessName,
-  category,
+  selectedCategoryAndSubCategory,
   bankName,
   accountNumber,
   accountName,
   businessDescription,
-  subaccount_code
+  subaccount_code,
 }: ADMINSIGNUPTODBTYPE): Promise<RETURNTYPE_ADMINSIGNUPTODBTYPE> => {
+  const categories = selectedCategoryAndSubCategory.map(
+    (cat: { category: string }) => cat.category,
+  );
+  const subCategories = selectedCategoryAndSubCategory.map(
+    (cat: { subCategory: string }) => cat.subCategory,
+  );
+
   const saveToDatabase = await new Admin({
     email: email.toLowerCase(),
     password: hashedPassword,
@@ -45,7 +53,8 @@ export const ADMINSIGNUPTODB = async ({
     lastName,
     phoneNumber,
     businessName: newBusinessName,
-    category: category.toLowerCase(),
+    categories,
+    subCategories,
     accountNumber,
     bankName: bankName.name,
     bankCode: bankName.code,
@@ -56,6 +65,24 @@ export const ADMINSIGNUPTODB = async ({
 
   const admin = await saveToDatabase.save();
   const adminIdToString = await admin._id.toString();
+
+  await Promise.all(
+    selectedCategoryAndSubCategory.map(async (item) => {
+      console.log(item);
+      await Category.updateOne(
+        {
+          slug: item.category,
+          "subCategories.slug": item.subCategory,
+        },
+        {
+          $set: {
+            "subCategories.$.vendor": admin._id,
+          },
+        },
+      );
+    }),
+  );
+
   return { adminIdToString };
 };
 

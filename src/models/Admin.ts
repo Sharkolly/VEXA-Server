@@ -12,6 +12,7 @@ const ADMINDETAILS = new Schema(
       required: [true, "Please provide a last name"],
       unique: false,
     },
+
     businessName: {
       type: String,
       required: [true, "Please provide a business name"],
@@ -46,10 +47,26 @@ const ADMINDETAILS = new Schema(
       type: String,
       required: [true, "Please provide a bank code"],
     },
-    category: {
-      type: String,
-      required: [true, "Please provide a category"],
-      unique: false,
+   
+    subCategories: {
+      type: [String],
+      required: true,
+      validate: {
+        validator: function (value: string) {
+          return value.length > 0;
+        },
+        message: "Select at least one subcategory.",
+      },
+    },
+    categories: {
+      type: [String],
+      required: true,
+      validate: {
+        validator: function (value: string) {
+          return value.length > 0;
+        },
+        message: "Select at least one category.",
+      },
     },
     paystackSubaccountCode: {
       type: String,

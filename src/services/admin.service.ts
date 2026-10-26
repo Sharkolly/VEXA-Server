@@ -1,6 +1,7 @@
 import Product from "../models/Product";
 import Admin from "../models/Admin";
 import type { ProductType } from "../types/product.types";
+import Category from "../models/Category";
 
 export const createProduct = async (product: ProductType) => {
   const newProduct = await new Product(product);
@@ -20,9 +21,12 @@ export const fetchProductByVendor = async (vendorId: string) => {
     throw new Error("Error fetching product by vendor");
   }
 };
-export const fetchProductByVendorAndDetails = async (vendorId: string, businessName: string) => {
+export const fetchProductByVendorAndDetails = async (
+  vendorId: string,
+  businessName: string,
+) => {
   try {
-    const vendor = await Admin.find({vendorId, businessName}).select(
+    const vendor = await Admin.find({ vendorId, businessName }).select(
       "accountName email phoneNumber profileImage businessName category createdAt businessDescription",
     );
 
@@ -51,4 +55,20 @@ export const getVendorSingleProduct = async (
     _id: productId,
   });
   return getProduct;
+};
+
+export const getRemainingSubCategories = async () => {
+  const categories = await Category.find();
+
+  const availableCategories = categories.map((category) => ({
+    _id: category._id,
+    name: category.name,
+    slug: category.slug,
+
+    subCategories: category.subCategories.filter(
+      (subCategory) => subCategory.vendor === null,
+    ),
+  }));
+
+  return availableCategories;
 };
