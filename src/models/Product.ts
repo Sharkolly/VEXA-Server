@@ -91,6 +91,7 @@ const productSchema = new Schema(
     name: { type: String, required: true, trim: true },
     slug: { type: String, required: true, trim: true },
     price: { type: Number, required: true, min: 0 },
+    disabled: {type: Boolean, required: true, default: false},
     category: { type: String, required: true, trim: true },
     subCategory: { type: String, required: true, trim: true },
     tags: { type: String, trim: true },
@@ -100,7 +101,7 @@ const productSchema = new Schema(
     brand: { type: String, trim: true },
     discount: { type: Number, default: 0, min: 0 },
     color: { type: String, required: false, trim: true },
-    out_of_stock: { type: Boolean, default: false },
+    out_of_stock: { type: String, default: 'in_stock', enum: ["in_stock", "low_stock", "out_of_stock"], },
     // vendor: {
     //   type: String,
     //   required: true,

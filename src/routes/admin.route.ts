@@ -15,6 +15,7 @@ import { getSingleProduct } from "../controllers/getSingleProduct.controller";
 import { AllBanks } from "../controllers/getAllBanks.controller";
 import { GetUserBankName } from "../controllers/getUserBankName.controller";
 import { getAvailableSubCategories } from "../controllers/getRemainingCategories.controller";
+import { updateStockStatus } from "../controllers/vendor-updateStockStatus.controller";
 // import { sendMail } from "../controllers/sendMail.controller";
 
 
@@ -43,6 +44,6 @@ router.delete('/delete/:productId', admin_token_verify, deleteProduct);
 
 router.get('/product/:vendorId/:productId',admin_token_verify, getSingleProduct); 
 
-// router.get('/send-mail', sendMail )
+router.patch('/product/:id/stock',admin_token_verify, updateStockStatus) 
 
 export default router;
