@@ -101,7 +101,7 @@ const productSchema = new Schema(
     brand: { type: String, trim: true },
     discount: { type: Number, default: 0, min: 0 },
     color: { type: String, required: false, trim: true },
-    out_of_stock: { type: String, default: 'in_stock', enum: ["in_stock", "low_stock", "out_of_stock"], },
+    stock: { type: String, default: 'in_stock', enum: ["in_stock", "low_stock", "out_of_stock"], },
     // vendor: {
     //   type: String,
     //   required: true,

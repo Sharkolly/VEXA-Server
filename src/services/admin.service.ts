@@ -72,3 +72,14 @@ export const getRemainingSubCategories = async () => {
 
   return availableCategories;
 };
+
+
+export const updateStock = async (id: string = '', stock: string = 'out_of_stock') => {
+  // console.log(id, stock);
+  const stockChange = await Product.findOneAndUpdate({_id: id}, { 
+    $set: { stock } 
+  })
+
+  console.log(stockChange);
+  return;
+}

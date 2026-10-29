@@ -29,7 +29,10 @@ export const ProductForm = async (
       deviceSpecifications,
       condition,
       size,
+      stock
     } = req.body;
+
+    console.log(stock)
 
     if (
       !name ||
@@ -39,11 +42,12 @@ export const ProductForm = async (
       !description ||
       !images ||
       !condition ||
-      !color
+      !color || 
+      !stock
     ) {
       return res.status(403).json({
         message:
-          "Please fill in all required fields, including name, price, category, sub-category, description, color, images, and brand in red asterisk.",
+          "Please fill in all required fields, including name, price, category, sub-category, description, color, images, stock, and brand in red asterisk.",
         status: false,
       });
     }
