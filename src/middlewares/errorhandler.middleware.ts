@@ -11,6 +11,7 @@ const errorHandler = (error: Error, req: Request, res: Response, next: NextFunct
     res.status(statusCode).json({
       success: false,
       message: error?.message || "Internal Server Error",
+      // data: (error as Error & { data?: unknown }).data ?? null,
     });
   }
 };

@@ -5,7 +5,7 @@ import {Request, Response, NextFunction} from  'express';
 export const GetUserBankName = async (req: Request, res: Response, next: NextFunction) => {
     const {accountNumber, bankCode} = req.body;
   try {
-    const {data} = await axios.get(
+    const resp = await axios.get(
   "https://api.paystack.co/bank/resolve",
   {
     params: {
@@ -18,10 +18,19 @@ export const GetUserBankName = async (req: Request, res: Response, next: NextFun
   }
 );
 
-res.status(201).json({status: true, data});
+if(!resp.data) res.status(401).json({message: "Bank details not found", status: false})
+
+res.status(201).json({status: true, data: resp.data});
   }
 
-  catch(err) {
-    next(err)
+  catch(err: any) {
+    let statusCode = err.response?.status || 500;
+
+
+  res.status(statusCode).json({
+    success: false,
+    message: err.response.data.message ,
+  });
+    // next(err)
   }
 }

@@ -29,10 +29,8 @@ export const ProductForm = async (
       deviceSpecifications,
       condition,
       size,
-      stock
-    } = req.body;
-
-    console.log(stock)
+      stock,
+    } = req.body;    
 
     if (
       !name ||
@@ -42,12 +40,12 @@ export const ProductForm = async (
       !description ||
       !images ||
       !condition ||
-      !color || 
+      !color ||
       !stock
     ) {
       return res.status(403).json({
         message:
-          "Please fill in all required fields, including name, price, category, sub-category, description, color, images, stock, and brand in red asterisk.",
+          "Please fill in all required fields, including name, price, category, sub-category, description, color, images, stock in red asterisk.",
         status: false,
       });
     }
@@ -90,12 +88,9 @@ export const ProductForm = async (
     return res.status(201).json({
       success: true,
       message: "Product created successfully!",
-      data: createdProduct,
+      // data: createdProduct,
     });
   } catch (error: any) {
-    console.log(error.message);
-
-    // return res.status(500).json({ success: false, message: error.message });
     next(error);
   }
 };

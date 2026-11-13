@@ -66,9 +66,21 @@ export const ADMINSIGNUPTODB = async ({
   const admin = await saveToDatabase.save();
   const adminIdToString = await admin._id.toString();
 
+const selectedCategoryAndSubCategor = categories
+  .map((cat: string, index: number) => ({
+    category: cat,
+    subCategory: subCategories[index]
+  }))
+  .filter((item: {category: string, subCategory: string}, index: number, self: any) => 
+    index === self.findIndex(
+      (t: {category: string, subCategory: string}) => t.category === item.category && t.subCategory === item.subCategory
+    )
+  );
+console.log(selectedCategoryAndSubCategor)
+
   await Promise.all(
-    selectedCategoryAndSubCategory.map(async (item) => {
-      console.log(item);
+    selectedCategoryAndSubCategor.map(async (item) => {
+      console.log(item); 
       await Category.updateOne(
         {
           slug: item.category,

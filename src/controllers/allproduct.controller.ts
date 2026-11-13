@@ -13,7 +13,6 @@ export const getAllProducts = async (
 ) => {
   const { search } = req.query || "";
 
-
   try {
     const subCategories = await getCategory();
     if (search) {
@@ -28,8 +27,8 @@ export const getAllProducts = async (
       status: "success",
       data: allProducts,
       subCategories,
-     
     });
+    
   } catch (error) {
     next(error);
   }

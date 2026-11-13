@@ -131,7 +131,7 @@ export const getProductsFromDB = async () => {
     shuffledCategories.map(async (subCategory) => {
       const products = await Product.aggregate([
         { $match: { subCategory } },
-        { $sample: { size: 10 } },
+        { $sample: { size: 8 } },
       ]);
       return {
         subCategory,
@@ -162,6 +162,7 @@ export const getAllProductsFromDB = async () => {
         name: 1,
         price: 1,
         description: 1,
+        stock: 1,
         category: 1,
         subCategory: 1,
         brand: 1,
@@ -266,6 +267,7 @@ export const relatedCategory = async (category: string) => {
         slug: 1,
         category: 1,
         brand: 1,
+        stock: 1,
         discount: 1,
         createdAt: 1,
       },
@@ -340,7 +342,7 @@ export const searchCategory = async (
   const [products, totalProducts] = await Promise.all([
     Product.find(filter)
       .select(
-        "name price description category subCategory brand discount createdAt images slug"
+        "name price description category subCategory brand discount createdAt images slug stock"
       )
       .sort({ createdAt: -1 })
       .skip(skip)

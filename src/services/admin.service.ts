@@ -6,7 +6,7 @@ import Category from "../models/Category";
 export const createProduct = async (product: ProductType) => {
   const newProduct = await new Product(product);
   const savedProduct = await newProduct.save();
-  return savedProduct;
+  return;
 };
 
 export const fetchProductByVendor = async (vendorId: string) => {
@@ -75,11 +75,8 @@ export const getRemainingSubCategories = async () => {
 
 
 export const updateStock = async (id: string = '', stock: string = 'out_of_stock') => {
-  // console.log(id, stock);
   const stockChange = await Product.findOneAndUpdate({_id: id}, { 
     $set: { stock } 
-  })
-
-  console.log(stockChange);
+  })  
   return;
 }

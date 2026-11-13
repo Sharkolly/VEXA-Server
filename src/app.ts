@@ -11,6 +11,7 @@ import errorHandler from "./middlewares/errorhandler.middleware";
 import auth_route from "./routes/auth.route";
 import admin_route from "./routes/admin.route";
 import product_route from "./routes/product.route";
+// import order_route from "./routes/order.route";
 import logger from "./config/logger";
 import connectToMongoDB from "./config/mongodb.config";
 import Payment from "./models/Payment";
@@ -42,17 +43,31 @@ app.use(
   }),
 );
 
-app.use(
-  "/api/products/webhook",
-  express.raw({
-    type: "application/json",
-  }),
-);
+// app.use(
+//   "/api/products/webhook",
+//   express.raw({
+//     type: "application/json",
+//   }),
+// );
+
+
+// app.use(
+//   express.json({
+//     verify: (req: Request, res: Response, buf) => {
+//       req.rawBody = buf;
+//     },
+//   })
+// );
+
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 // middleware
 app.use(errorHandler);
+
+
+// app.use("/api/orders", order_route);
+
 app.use("/api/user", auth_route);
 app.use("/api/admin", admin_route);
 app.use("/api/products", product_route);
