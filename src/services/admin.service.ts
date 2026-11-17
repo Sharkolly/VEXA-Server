@@ -26,7 +26,7 @@ export const fetchProductByVendorAndDetails = async (
   businessName: string,
 ) => {
   try {
-    const vendor = await Admin.find({ vendorId, businessName }).select(
+    const vendor = await Admin.findOne({ _id:vendorId, businessName }).select(
       "accountName email phoneNumber profileImage businessName category createdAt businessDescription",
     );
 
