@@ -141,7 +141,6 @@ export const getProductsFromDB = async () => {
   );
 
   return data;
-
 };
 
 export const getCategory = async () => {
@@ -192,64 +191,69 @@ export const getProductSlug = async (
   return product;
 };
 
-export const searchProduct = async (search: string) => {
-  const product = await Product.find({
-    name: { $options: "i", $regex: search },
-  }).limit(15);
+// export const searchProduct = async (search: string) => {
+//   // const product = await Product.find({
+//   //   name: { $options: "i", $regex: search },
+//   // }).limit(15);
 
-  return { product };
-};
-
-// export const searchCategory = async (category: string) => {
-//   let product;
-
-//   console.log(category)
-//   if (category == "all") {
-//     product = await Product.aggregate([
-//       {
-//         $sample: {
-//           size: 15,
-//         },
-//       },
-//       {
-//         $project: {
-//           name: 1,
-//           price: 1,
-//           description: 1,
-//           category: 1,
-//           subCategory: 1,
-//           brand: 1,
-//           discount: 1,
-//           createdAt: 1,
-//           images: 1,
-//           slug: 1,
-//         },
-//       },
-//     ]);
-//   } else {
-//     // product = await Product.find({ category }).limit(15);
-
-//     product = await Product.aggregate([
-//       { $match: { subCategory: category } },
-//       { $sample: { size: 15 } },
-//       {
-//         $project: {
-//           name: 1,
-//           price: 1,
-//           description: 1,
-//           images: 1,
-//           subCategory: 1,
-//           slug: 1,
-//           category: 1,
-//           brand: 1,
-//           discount: 1,
-//           createdAt: 1,
-//         },
-//       },
-//     ]);
-//   }
-//   return product;
+//   // return { product };
 // };
+export const searchProduct = async (
+  product: string,
+  page: number = 1,
+  limit: number = 4,
+) => {
+  try {
+    const currentPage = Math.max(1, Number(page) || 1);
+    const pageLimit = Math.max(1, Number(limit) || 4);
+
+    const skip = (currentPage - 1) * pageLimit;
+
+    // Use ONE filter for both queries
+    // const filter: any = {
+    //   vendor: vendorId,
+    // };
+
+    // if (product?.trim()) {
+    //   filter.name = {
+    //     $regex: product.trim(),
+    //     $options: "i",
+    //   };
+    // }
+
+    const [products, totalProducts] = await Promise.all([
+      Product.find({
+        name: {
+          $regex: product.trim(),
+          $options: "i",
+        },
+      })
+        .select(
+          "name price description category subCategory brand discount createdAt images slug stock",
+        )
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(pageLimit),
+
+      Product.countDocuments({
+        name: {
+          $regex: product.trim(),
+          $options: "i",
+        },
+      }),
+    ]);
+
+    return {
+      products,
+      currentPage,
+      totalPages: Math.ceil(totalProducts / pageLimit),
+      totalProducts,
+    };
+  } catch (error) {
+    console.error("Error fetching product by vendor:", error);
+    throw new Error("Error fetching product by vendor");
+  }
+};
 
 export const relatedCategory = async (category: string) => {
   // const product = await Product.find({ category }).limit(4);
@@ -312,11 +316,10 @@ export const GetHomeProduct = async () => {
   return product;
 };
 
-
 // export const totalProduct = async  (skip: number, limit: number)  => {
-  
+
 //     const totalProducts = await Product.countDocuments();
-  
+
 //     const products = await Product.find()
 //       .skip(skip)
 //       .limit(limit)
@@ -325,24 +328,19 @@ export const GetHomeProduct = async () => {
 //     return {totalProducts, products}
 // }
 
-
-
 export const searchCategory = async (
   category: string,
   page: number = 1,
-  limit: number = 15
+  limit: number = 15,
 ) => {
   const skip = (page - 1) * limit;
 
-  const filter =
-    category === "all"
-      ? {}
-      : { subCategory: category };
+  const filter = category === "all" ? {} : { subCategory: category };
 
   const [products, totalProducts] = await Promise.all([
     Product.find(filter)
       .select(
-        "name price description category subCategory brand discount createdAt images slug stock"
+        "name price description category subCategory brand discount createdAt images slug stock",
       )
       .sort({ createdAt: -1 })
       .skip(skip)

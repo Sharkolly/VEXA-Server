@@ -9,24 +9,61 @@ export const createProduct = async (product: ProductType) => {
   return;
 };
 
-export const fetchProductByVendor = async (vendorId: string) => {
-  try {
-    const product = await Product.find({ vendor: vendorId }).sort({
-      createdAt: -1,
-    });
 
-    return product;
+export const fetchProductByVendor = async (
+  vendorId: string,
+  product: string,
+  page: number = 1,
+  limit: number = 4,
+) => {
+  try {
+    const currentPage = Math.max(1, Number(page) || 1);
+    const pageLimit = Math.max(1, Number(limit) || 4);
+
+    const skip = (currentPage - 1) * pageLimit;
+
+    // Use ONE filter for both queries
+    const filter: any = {
+      vendor: vendorId,
+    };
+
+    if (product?.trim()) {
+      filter.name = {
+        $regex: product.trim(),
+        $options: "i",
+      };
+    }
+
+    const [products, totalProducts] = await Promise.all([
+      Product.find(filter)
+        .select(
+          "name price description category subCategory brand discount createdAt images slug stock",
+        )
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(pageLimit),
+
+      Product.countDocuments(filter),
+    ]);
+
+    return {
+      products,
+      currentPage,
+      totalPages: Math.ceil(totalProducts / pageLimit),
+      totalProducts,
+    };
   } catch (error) {
     console.error("Error fetching product by vendor:", error);
     throw new Error("Error fetching product by vendor");
   }
 };
+
 export const fetchProductByVendorAndDetails = async (
   vendorId: string,
   businessName: string,
 ) => {
   try {
-    const vendor = await Admin.findOne({ _id:vendorId, businessName }).select(
+    const vendor = await Admin.findOne({ _id: vendorId, businessName }).select(
       "accountName email phoneNumber profileImage businessName category createdAt businessDescription",
     );
 
@@ -73,10 +110,15 @@ export const getRemainingSubCategories = async () => {
   return availableCategories;
 };
 
-
-export const updateStock = async (id: string = '', stock: string = 'out_of_stock') => {
-  const stockChange = await Product.findOneAndUpdate({_id: id}, { 
-    $set: { stock } 
-  })  
+export const updateStock = async (
+  id: string = "",
+  stock: string = "out_of_stock",
+) => {
+  const stockChange = await Product.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: { stock },
+    },
+  );
   return;
-}
+};

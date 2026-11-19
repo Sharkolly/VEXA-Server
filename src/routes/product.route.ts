@@ -6,17 +6,17 @@ import { getHomeProduct } from "../controllers/HomeProduct.controller";
 import { getProduct } from "../controllers/product_id.controller";
 import { Category } from "../controllers/getCategory";
 import { RelatedCategory } from "../controllers/getRelatedCategory";
-import  initializePayment  from "../controllers/initializePayment.controller";
-import getDeliveryLocationDistance from '../controllers/locationDistance.controller'   
+import initializePayment from "../controllers/initializePayment.controller";
+import getDeliveryLocationDistance from "../controllers/locationDistance.controller";
 import { paystackWebhook } from "../controllers/PaystackWebHook";
-import express from 'express'
+import express from "express";
 import { AllCategory } from "../controllers/allCategory.controler";
 
 const router = Router();
 
 router.get("/", getAllProducts);
 
-router.get("/min", getHomeProduct); 
+router.get("/min", getHomeProduct);
 
 router.get("/all", getAllPro);
 
@@ -26,21 +26,18 @@ router.get("/category/:category", RelatedCategory);
 
 router.get("/:category/:subCategory/:slug/:id", getProduct);
 
-router.get('/all-category', AllCategory)
+router.get("/all-category", AllCategory);
 
+router.post("/get-distance", token_verify, getDeliveryLocationDistance);
 
-router.post('/get-distance',token_verify,   getDeliveryLocationDistance)
-
-router.post('/initialize-payment',token_verify, initializePayment)
-
+router.post("/initialize-payment", token_verify, initializePayment);
 
 router.post(
   "/webhook",
   express.raw({
-    type: "application/json"
+    type: "application/json",
   }),
-  paystackWebhook
+  paystackWebhook,
 );
-
 
 export default router;

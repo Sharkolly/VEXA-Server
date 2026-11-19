@@ -10,7 +10,7 @@ export const Category = async (
   const page = Math.max(Number(req.query.page) || 1, 1);
   const limit = Math.min(Number(req.query.limit) || 12, 50);
 
-  const skip = (page - 1) * limit;
+  // const skip = (page - 1) * limit;
   try {
     // const subCategories = await getCategory();    
     const {products, totalPages, totalProducts} = await searchCategory(search as string, page, limit );
