@@ -16,6 +16,7 @@ import { AllBanks } from "../controllers/getAllBanks.controller";
 import { GetUserBankName } from "../controllers/getUserBankName.controller";
 import { getAvailableSubCategories } from "../controllers/getRemainingCategories.controller";
 import { updateStockStatus } from "../controllers/vendor-updateStockStatus.controller";
+import { AdminSelectedCategory } from "../controllers/getAdminSelectedCategories.controller";
 // import { sendMail } from "../controllers/sendMail.controller";
 
 
@@ -34,9 +35,13 @@ router.get('/vendor/:vendorId/:businessName', VendorProduct);
 
 router.get('/get-all-banks', AllBanks);
 
+router.get('/selected-categories',  admin_token_verify, AdminSelectedCategory);
+
 router.get('/available-subcategories', getAvailableSubCategories);
 
 router.post('/get-user-bank-name', GetUserBankName)
+
+
 
 router.post("/product", admin_token_verify, processMediaUpload, ProductForm);
 

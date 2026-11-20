@@ -9,7 +9,6 @@ export const createProduct = async (product: ProductType) => {
   return;
 };
 
-
 export const fetchProductByVendor = async (
   vendorId: string,
   product: string,
@@ -37,7 +36,7 @@ export const fetchProductByVendor = async (
     const [products, totalProducts] = await Promise.all([
       Product.find(filter)
         .select(
-          "name price description category subCategory brand discount createdAt images slug stock",
+          "name price description category subCategory condition brand discount createdAt images slug stock",
         )
         .sort({ createdAt: -1 })
         .skip(skip)
@@ -121,4 +120,10 @@ export const updateStock = async (
     },
   );
   return;
+};
+
+export const fetchSelectedCategories = async (vendor: string) => {
+  const vendorCategoriesAndSubCategories = await Admin.findById(vendor).select("categories subCategories");
+
+  return  vendorCategoriesAndSubCategories;
 };
